@@ -101,7 +101,7 @@ COPY . .
 
 # Override the entrypoint to avoid the default php entrypoint
 
-ENTRYPOINT []
+
 
 EXPOSE 8000
 
@@ -114,6 +114,8 @@ RUN mkdir -p /var/log
 #RUN php -v
 #RUN php artisan config:clear
 #RUN php artisan cache:clear
+
+ENTRYPOINT []
 
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/laravel-worker.conf"]
 
