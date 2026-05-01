@@ -1,0 +1,289 @@
+@php
+    use App\Models\Config
+  ; use App\Models\Loyaltyaccount
+  ; use App\Models\Reward
+  ; use Illuminate\Support\Facades\Auth
+  ; use App\Models\Notification
+  ;
+@endphp
+<div class="col-md-3">
+    <div class="card">
+        <div class="card-header"><h5>{{ 'Menu' }}</h5></div>
+        <div class="card-body">
+            <div class="list-group list-group-flush">
+                @if(Auth::guard('client')->check() && Auth::guard('client')->user()->active)
+                    @php
+
+                        if (Auth::guard('client')->check()) {
+                            $notifications0 = Notification:: where('recipient_address', Auth::guard('client')->user()->telephone)->where('read', false)->get();
+                            $notifications = [];
+                            foreach ($notifications0 as $notification){
+                                array_push($notifications, $notification);
+                            }
+
+                            if(Auth::guard('client')->user()->email != null){
+                                $notifications1 = Notification::
+                                where('recipient_address', Auth::guard('client')->user()->email)->orWhere('recipient_address', Auth::guard('client')->user()->email)->where('read', false)->get();
+                                foreach ($notifications1 as $notification){
+                                    array_push($notifications, $notification);
+                                }
+                            }
+
+                            //$birthdate = (Auth::guard('client')->user()->birthdate != null) ? Carbon::parse(Auth::guard('client')->user()->birthdate)
+                            $incompleteProfile = false;
+                            if(Auth::guard('client')->user()->email == null
+                                || Auth::guard('client')->user()->birthdate == null
+                                || Auth::guard('client')->user()->gender == null
+                                || Auth::guard('client')->user()->quarter == null
+                                || Auth::guard('client')->user()->city == null){
+                                $incompleteProfile = true;
+                            }
+                            $incompleteProfileMsg = 'Les donnees suivantes sont a completer: ';
+                            if (Auth::guard('client')->user()->email == null){
+                                $incompleteProfileMsg .= __('Email');
+                            }
+                            if (Auth::guard('client')->user()->birthdate == null){
+                                $incompleteProfileMsg .= ', ' . __("Date de naissance (Jour et Mois)");
+                            }
+                            if (Auth::guard('client')->user()->gender == null){
+                                $incompleteProfileMsg .= ', ' . __('Sexe');
+                            }
+                            if (Auth::guard('client')->user()->quarter == null){
+                                $incompleteProfileMsg .= ', ' . __('Lieu de résidence');
+                            }
+                            if (Auth::guard('client')->user()->city == null){
+                                $incompleteProfileMsg .= ', ' . __('Ville');
+                            }
+                            $unreadMsgNum = count($notifications);
+
+                            $loyaltyaccount =  Loyaltyaccount::where('holderid', Auth::guard('client')->user()->id)->first();
+                        }
+
+
+                        $configuration = Config::where('is_applicable', true)->first();
+                        $levels = json_decode($configuration->levels);
+                        $client = Auth::guard('client')->user();
+                        $loyaltyAccount = Loyaltyaccount::where('holderid', $client->id)->first();
+                        $maxLevel = $levels[0];
+                        $minLevel = $levels[0];
+                        foreach ($levels as $level){
+                            if($level->point > $maxLevel->point && intval(strval(decrypt($loyaltyAccount->point_balance))) >= $level->point){
+                                $maxLevel = $level;
+                            }
+                            if($level->point < $minLevel->point){
+                                $minLevel = $level;
+                            }
+                        }
+
+                        $possibleLevels = [];
+                        foreach ($levels as $level){
+                            if ($level->point <= $maxLevel->point && $level->point >= $minLevel->point){
+                                array_push($possibleLevels, $level);
+                            }
+                        }
+
+                    @endphp
+
+                    @if(Auth::guard('client')->check())
+                        <a class="list-group-item list-group-item-action" href="{{ route('home.client') }}">
+                            <h6><img src="{{asset('images/icons8-dashboard-25.png')}}" alt=""> &nbsp;{{ __('Accueil') }}</h6>
+                        </a>
+
+                        <a class="list-group-item list-group-item-action btn btn-link"
+                           href="{{route('home.loyaltytransactions.client.search.all', Auth::guard('client')->user()->id)}}"
+                           id="lien-pour-transaction-enregistres">
+                            <h6><img src="{{asset('images/icons8-transaction-25.png')}}" alt=""> &nbsp;{{ __('Transactions') }}</h6>
+                        </a>
+
+                        @if(count(\App\Models\Voucher::all()) > 0)
+                            <a class="list-group-item list-group-item-action btn btn-link"
+                               href="{{ route('clients.get.vouchers', Auth::guard('client')->user()->id)}}">
+                                <h6><img src="{{asset('images/icons8-loyalty-card-25.png')}}" alt="">
+                                    &nbsp;{{ __('Bons de Fidélité') }}</h6>
+                            </a>
+                        @endif
+                        <a class="list-group-item list-group-item-action" href="{{ route('rewards.list.view') }}">
+                            <h6><img src="{{asset('images/icons8-reward-25.png')}}" alt=""> &nbsp;{{ __('Récompenses') }}</h6>
+                        </a>
+
+                        @if(intval(strval(decrypt($loyaltyAccount->point_balance))) >= $minLevel->point)
+                            <a class="list-group-item list-group-item-action" href="#"
+                               data-bs-toggle="modal" data-bs-target="#generate-voucher-modal">
+                                <h6><img src="{{asset('images/icons8-loyalty-card-25.png')}}" alt=""> &nbsp;{{ __('Générer') . ' ' .__('un bon') }}
+                                    <span class="badge bg-primary position-absolute top|start-*"
+                                          style="position: relative; right: 0; padding-top: 7px;">{{intval(strval(decrypt($loyaltyAccount->point_balance)))}}</span></h6>
+                            </a>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="generate-voucher-modal" data-bs-backdrop="static"
+                                 data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+                                 aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="staticBackdropLabel">{{__("Point cumulé")}}:
+                                                <strong
+                                                    style="color: darkred;">{{intval(strval(decrypt($loyaltyAccount->point_balance)))}}
+                                                    points</strong></h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                        </div>
+                                        <div class="alert alert-light">
+                                            <div class="alert alert-info">
+                                                <ol>
+                                                    @foreach($possibleLevels as $level)
+                                                        <li>
+                                                            <h6>
+                                                               {{ __("Bon de Type") }}
+                                                                  <strong style="color: #495057;">{{$level->name}}</strong>
+                                                               {{ __("disponible pour") }}
+                                                                <strong> {{$level->point}}</strong>
+
+                                                            </h6>
+                                                            @php
+                                                                $rewards = Reward::all();
+                                                                $selectedRewards = [];
+                                                                foreach ($rewards as $reward){
+                                                                    $niveau = json_decode($reward->level);
+                                                                    if ($niveau->name === $level->name && $niveau->point === $level->point){
+                                                                        array_push($selectedRewards, $reward);
+                                                                    }
+                                                                }
+                                                            @endphp
+                                                            @if(count($selectedRewards) > 0)
+                                                                <h6>
+                                                                    {{__("Vous pouvez beneficier de")}}:
+                                                                </h6>
+                                                                <ul>
+                                                                    @foreach($selectedRewards as $theReward)
+                                                                        <li>
+                                                                            {{$theReward->name}}
+                                                                        </li>
+                                                                    @endforeach
+                                                                </ul>
+                                                            @endif
+                                                        </li>
+                                                    @endforeach
+                                                </ol>
+                                            </div>
+                                        </div>
+
+                                        {{--@if(!($bestReward === null))--}}
+
+                                        {{--<div class="alert alert-light" style="margin-top: -20px;">
+                                            <div class="alert alert-primary">
+                                                <h5>
+                                                    vous pouvez generer un bon de type
+                                                    <strong>{{$type}}</strong>
+                                                    vous donnant droit a :
+                                                    <strong>{{$bestReward->name}}</strong>
+                                                    ayant une valeur de
+                                                    <strong>{{$bestReward->value}}</strong>
+                                                </h5>
+                                            </div>
+                                        </div>--}}
+                                        <form method="POST" action="{{route('vouchers.post')}}"
+                                              onsubmit="return true;">
+                                            <div class="modal-body">
+
+                                                <input type="hidden" name="error" id="error"
+                                                       class="form-control @error('error') is-invalid @enderror">
+                                                @error('error')
+                                                <span class="invalid-feedback" role="alert"
+                                                      style="position: relative; width: 100%; text-align: center;">
+                                                    <strong>{{ $message }}</strong>
+                                                </span> <br/>
+                                                @enderror
+
+                                                @csrf
+
+                                                @if(count($possibleLevels) >= 1)
+                                                    <div class="row mb-3">
+                                                        {{--<input type="hidden" name="transactiontypeid"
+                                                               value="{{$transactiontype->id}}">--}}
+                                                        <label for="level"
+                                                               class="col-md-4 col-form-label text-md-end">{{ __('Type de Bon') }}</label>
+                                                        <div class="col-md-6">
+                                                            <select id="level"
+                                                                    class="form-control form-select form-select-lg @error('level') is-invalid @enderror"
+                                                                    name="level">
+                                                                <option value="">-- {{__("Sélectionnez ici")}} --</option>
+                                                                @foreach($possibleLevels as $level)
+                                                                    <option
+                                                                        value="{{json_encode($level)}}">{{$level->name}}</option>
+                                                                @endforeach
+                                                            </select>
+                                                            @error('level')
+                                                            <span class="invalid-feedback" role="alert">
+                                                                 <strong>{{ $message }}</strong>
+                                                             </span>
+                                                            @enderror
+                                                        </div>
+
+                                                        <input type="hidden" name="clientid" id="clientid"
+                                                               value="{{$client->id}}">
+                                                        <input id="transactiontype" name="transactiontype"
+                                                               value="GENERATION DE BON" type="hidden"/>
+                                                        {{--<input type="hidden" name="rewardid" id="rewardid"
+                                                               value="{{$bestReward->id}}">
+                                                        <input type="hidden" name="conversionpointrewardid"
+                                                               id="conversion_point_reward"
+                                                               value="{{$conversionUsed->id}}">
+                                                        <input type="hidden" name="thresholdid"
+                                                               value="{{$threshold->id}}">
+                                                        <input type="hidden" name="level" value="{{$type}}">--}}
+                                                    </div>
+                                                @else
+                                                    <input type="hidden" name="level" id="level"
+                                                           value="{{json_encode($possibleLevels[0])}}">
+                                                    <input type="hidden" name="clientid" id="clientid"
+                                                           value="{{$client->id}}">
+                                                    <input id="transactiontype" name="transactiontype"
+                                                           value="GENERATION DE BON" type="hidden"/>
+                                                @endif
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-danger"
+                                                        data-bs-dismiss="modal">Annuler
+                                                </button>
+                                                <button type="submit" class="btn btn-success">{{__('Générer')}}
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+
+                        <a class="list-group-item list-group-item-action"
+                           href="{{ route('client.friend-invitations.list', Auth::guard('client')->user()->id) }}">
+                            <h6><img src="{{asset('images/icons8-list-24.png')}}" alt=""> &nbsp;{{ __('Mes invitations') }}</h6>
+                        </a>
+
+                        @if(Auth::guard('client')->check())
+                            <a class="list-group-item list-group-item-action btn-link"
+                               href="{{ route('clients.notifs.index', Auth::guard('client')->user()->id) }}">
+                                <h6><img src="{{asset('images/icons8-notification-25.png')}}" alt=""> &nbsp;{{ __('Notifications') }}
+                                    <span class="badge bg-primary position-absolute top|start-*"
+                                          style="position: relative; right: 0; padding-top: 7px;">{{$unreadMsgNum}}</span></h6>
+
+                            </a>
+                        @endif
+
+                        <a class="list-group-item list-group-item-action btn btn-link"
+                           href="{{ route('contact-support')}}">
+                            <h6><img src="{{asset('images/icons8-customer-support-25.png')}}" alt=""> &nbsp;{{ __('Contact Support') }}
+                            </h6>
+                        </a>
+
+                    @endif
+
+                @else
+                    <div>
+                        <div class="alert alert-danger" role="alert">{{ __('Client Désactivé') }}</div>
+                    </div>
+                @endif
+            </div>
+        </div>
+    </div>
+</div>

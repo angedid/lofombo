@@ -1,0 +1,14 @@
+
+1- https://search.brave.com/search?q=how+to+deploy+laravel+project&summary=1&conversation=308a2e46be72aa8ab6c153
+    a- Clear cached configurations using php artisan cache:clear, php artisan config:clear, php artisan route:clear, and php artisan view:clear
+    b- Configure environment variables by editing .env file
+    c- Push on Git the version in deployment
+    d- Configure database access
+    e- Generate Application Key: Run php artisan key:generate to generate a new application key and ensure it is set in the .env file.
+    f- Set Environment to Production: Update the .env file to set APP_ENV=production and APP_DEBUG=false to disable debug mode.
+2- composer install --ignore-platform-reqs
+3- Verifier l'acces au repertoir storage.
+    a- sudo chown -R www-data:www-data storage/
+    b- sudo chmod -R 775 storage/
+    c- https://www.youtube.com/watch?v=qE9IQI5jTMs
+
