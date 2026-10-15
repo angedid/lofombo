@@ -1,0 +1,17 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Voucher extends Model
+{
+    protected $table = 'vouchers';
+    protected $primaryKey = 'id';
+    protected $casts = ['id' => 'string'];
+    public $incrementing = false;
+
+    protected $keyType = 'string';
+    protected $fillable = ['id', 'serialnumber', 'clientid', 'level', 'point', 'amount', 'enterprise', 'expirationdate',
+        'active', 'activated_by', 'activated_at', 'deactivated_at', 'is_used', 'code_used', 'used_at', 'reward_id'];
+}

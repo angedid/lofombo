@@ -1,0 +1,14 @@
+1. Generate a temporary access token
+EAALyhP4juGwBQRiux2m7qzv3tzBXmFZAjtqDIKeE6NROZCTLnGvln107wQoxdwN4wjJswrcHnDVn07z4zCnLZAuHZBsoOz9RekJaPuuT4LtMytJa3e7nTnGIZCKW8DwUsanGhIZAxwzZBE9EKZAM6WzY8ZAn56JbnjtLmR0nZBL7tOVyG3s5Sw4N0E3FrCISukzCZAMlUgXIk3KPmvRQyMBPlQcuN5ZCNJFJbpJm8YqGGW7JbwLNdBP8boeC2n5r7WkKccCuQrl8zsgOtgqqu1yA6ZAW1uEBm
+
+2. Sélectionnez le numéro de téléphone à l’origine de l’appel
+Un compte WhatsApp Business test et un numéro de téléphone test ont été générés pour vous envoyer des messages test
+gratuitement pendant 90 jours.
+Test number: +1 555 162 8312
+ID du compte WhatsApp Business : 1631992658154321
+ID du numéro de téléphone : 995900390264171
+
+3. Add a recipient phone number
+   a. +237691179154   (pin: 00867)
+   b. +237699059868   (pin: 26010)
+

@@ -1,0 +1,1 @@
+{"to":"237691179155","message":"The serial number of the generated voucher is: 224-289-169-973 and the usage code is: 2916-8456"}{"messages":[{"messageId":"4644939070697919114251","status":{"description":"Message sent to next instance","groupId":1,"groupName":"PENDING","id":26,"name":"PENDING_ACCEPTED"},"to":"237691179155"}]}
