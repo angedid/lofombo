@@ -115,7 +115,7 @@
                                                                    class="form-control @error('telephone') is-invalid @enderror"
                                                                    name="telephone" value="{{ old('telephone') }}"
                                                                    required autocomplete="telephone"
-                                                                   placeholder="{{__("Exemple: ")}} +237691179154"
+                                                                   placeholder="{{__("Exemple: ")}} 691179154"
                                                                    onkeyup="removeNonNumericCharaters(this);"
                                                             >
 
@@ -302,7 +302,7 @@
                                                             return true;
                                                         }
                                                         function removeNonNumericCharaters(theInput){
-                                                            theInput.value = "+" + theInput.value.replace(/\D/g, '');
+                                                            theInput.value = theInput.value.replace(/\D/g, '');
                                                         }
                                                     </script>
                                                 </form>
@@ -401,7 +401,7 @@
                                                     $clientReceipt = \App\Models\Client::where('id', session('purchase')->clientid)->first();
                                                 ?>
                                                 {{__("au nom du client")}}: {{$clientReceipt->name}}, {{__("Montant")}}: {{session('purchase')->amount}}
-                                                (ID: {{session('purchase')->id}})
+                                                {{--(ID: {{session('purchase')->id}})--}}
                                             </small>
                                         @endif
                                     {{--</div>--}}
@@ -501,7 +501,7 @@
                                                 var divtest = document.createElement("div");
                                                 //divtest.setAttribute("class", "form-group removeclass"+room);
                                                 //var rdiv = 'removeclass'+room;
-                                                var rowid = "product" + index;
+                                                //var rowid = "product" + index;
 
                                                 divtest.innerHTML =
                                                     '<div class="row" id="product' + index + '" style="margin-bottom: 7px;">' +
@@ -754,7 +754,7 @@
                                                                     data-bs-dismiss="modal">Annuler
                                                             </button>
                                                             <button type="submit" class="btn btn-success">
-                                                                {{__('Confirmer l\'achat')}}
+                                                                {{__('Confirmer')}}
                                                             </button>
                                                         </div>
                                                     {{--</form>--}}
@@ -802,7 +802,7 @@
                                                 for(var i = 0; i < datalistOptions.length; i++){
                                                     //console.log(datalistOptions[i]);
                                                     var regExp2 = /\+[0-9]{8,20}/g;
-                                                    var matches = datalistOptions[i].value.match(regExp2);
+                                                    //var matches = datalistOptions[i].value.match(regExp2);
                                                     //if(matches !== null){
                                                     console.log(datalistOptions[i].value + ' ?= ' + nameTel);
                                                     if(datalistOptions[i].value === nameTel){
@@ -831,7 +831,7 @@
                                                     console.log("Selected option.value: " + selectedOption.getAttribute('value'));
 
                                                 }
-                                                var name = '';
+                                                var name ;
                                                 if(selectedOption == null){
                                                     name = '';
                                                 }else{

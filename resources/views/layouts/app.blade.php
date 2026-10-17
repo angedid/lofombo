@@ -157,6 +157,10 @@
             box-shadow:0 8px 18px rgba(90,117,248,.35);
             transition:.15s;
         }
+        .enterprise_name{
+            color: #4761D8;
+            font-size: 25px;
+        }
         .btn-primary:hover{background:#4661e0;}
         .login-error{
             display:none;background:#FFF0F0;border:1px solid var(--red);color:var(--red);
@@ -242,8 +246,9 @@
 
     </style>
 
+    <link href="{{ asset('css/application-layout.css') }}" rel="stylesheet">
 </head>
-<body style="font-size: initial; font-family: 'DejaVu Sans Light';">
+<body style="font-size: initial; font-family: sans-serif, Inter, sans serif;">
 
 
 <?php
@@ -281,21 +286,23 @@
                          style="margin-top: -20px; margin-bottom: -20px; border-radius: 50%;" height="65" width="65"
                          alt=""> &nbsp; &nbsp;<strong>{{ config('app.name', 'Laravel') }}</strong>--}}
                 @endif
-
+            <span class="enterprise_name">
+                @php
+                    $config = Config::where('is_applicable', true)->first();
+                @endphp
+                @if($config != null && $config->enterprise_name)
+                    &nbsp;  {{$config->enterprise_name}}
+                @endif
+            </span>
             </a>
+
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            @if(Auth::check())
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
-                    </ul>
-                </div>
-            @endif
+
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <!-- Left Side Of Navbar -->
                 {{--@if(Auth::check())
@@ -324,79 +331,7 @@
                 <ul class="navbar-nav ms-auto">
 
                     <li class="nav-item">
-                        <div class="form-row align-items-center">
-                            <div class="col-auto">
-                                <div class="input-group mb-2">
-                                    <div class="input-group-prepend">
-                                        <div class="">
-                                            <img src="{{asset('images/fr.svg')}}" alt="" height="25" width="25" id="flag" style="margin-top: 5px;"> &nbsp;
-                                        </div>
-                                    </div>
-
-
-
-                                    <select class="lang-switch" name="language" onchange="submitLanguageForm(this.value);"
-                                            id="language_selector" style="display: inline; border: 0 white solid; background-color: #FFFFFF; font-size: 1em; font-weight: bolder;" >
-                                        @foreach(config('app.available_locales') as $locale)
-                                            <option value="{{ $locale }}" class="active"
-                                                {{$locale === Request::segment(1) ? 'selected' : ''}} >
-                                                {{ strtoupper($locale) === 'FR' ? "Français" : (strtoupper($locale) === 'EN' ? "English" : "Français") }}{{-- - {{Request::segment(1)}} - {{$locale}}--}}
-                                            </option>
-                                        @endforeach
-                                    </select>
-
-                                </div>
-                            </div>
-                        </div>
-
-
-
-                        <form method="GET" action="" id="select_language_form">
-                            {{--@csrf--}}
-                        </form>
-
-                        <script type="text/javascript">
-                            function submitLanguageForm(locale){
-                                var form = document.getElementById('select_language_form');
-                                //var currentUrl = window.location.href;
-                                var path = window.location.pathname;
-                                if(path.length > 0){
-                                    var pathWitoutTrailingSlash = path.substring(1, path.length);
-                                    var pathArray = pathWitoutTrailingSlash.split('/');
-                                    pathArray[0] = locale;
-                                    var newPathname = "";
-                                    for (i = 0; i < pathArray.length; i++) {
-                                        newPathname += "/";
-                                        newPathname += pathArray[i];
-                                    }
-                                    form.action = window.location.protocol + "//" + window.location.host + newPathname;
-                                    form.submit();
-
-
-                                }
-                            }
-
-                            function setFlag(){
-                                let path = window.location.pathname;
-                                if(path.length > 0){
-                                    let pathWitoutTrailingSlash = path.substring(1, path.length);
-                                    let pathArray = pathWitoutTrailingSlash.split('/');
-                                    let  locale = pathArray[0];
-                                    console.log("Local from url = " + locale);
-                                    let language = locale.toUpperCase();
-                                    let flagImg = document.getElementById("flag");
-                                    let flagFile = "";
-                                    if(language === "FR"){
-                                        flagFile = "fr.svg";
-                                    }else{
-                                        flagFile = "gb.svg";
-                                    }
-                                    let imgsrc = window.location.protocol + "//" + window.location.host + "/images/" + flagFile;
-                                    flagImg.setAttribute('src', imgsrc);
-                                }
-                            }
-                            setFlag();
-                        </script>
+                        @include('layouts.language-switcher')
 
                     </li>
                 </ul>
@@ -427,8 +362,8 @@
                                     <strong>{{ Auth::user()->name }}</strong>
                                 </a>
 
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown"
-                                     style="border: 2px #164fa9 solid; font-weight: bold; font-size: 1em;">
+                                <div class="dropdown-menu dropdown-menu-end account-menu" aria-labelledby="navbarDropdown"
+                                     >
 
                                     <a class="dropdown-item" href="{{ url('/'.GuestController::getApplicationLocal().'/password-reset')}}">
                                         <strong>{{ __('Modifier mot de passe') }}</strong>

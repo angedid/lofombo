@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Models\Config;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Address;
@@ -29,11 +30,12 @@ class MailForCampaign extends Mailable
      */
     public function envelope(): Envelope
     {
+        $config = Config::where('is_applicable', true)->first();
         return new Envelope(
             replyTo: [
                 new Address($this->data['enterprise_email'], $this->data['enterprise_name']),
             ],
-            subject: $this->data['subject'],
+            subject: __('PROGRAMME DE FIDELITE LOFOMBO DE ') . $config->enterprise_name . ' – ' . $this->data['subject'],
         );
     }
 

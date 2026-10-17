@@ -9,7 +9,7 @@
 <div class="col-md-3 sidebar">
     <div class="">
         <div class="menu-title">
-            <span style="font-size: 1.5em;">{{ __('Menu') }}</span>
+            {{ __('Menu principal') }}
             {{--<img src="{{asset('images/icons8-triangle-arrow-24.png')}}" alt="" height="15" width="15"/>--}}
         </div>
         {{--<div class=""><h5>{{ 'Menu' }}</h5></div>--}}

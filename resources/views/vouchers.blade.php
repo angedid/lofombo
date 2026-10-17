@@ -15,6 +15,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h5 style="display: inline;"><strong>{{ __("Bons du système") }}</strong></h5>
+
                     </div>
                     <div class="card-body">
                         @if (session('status'))

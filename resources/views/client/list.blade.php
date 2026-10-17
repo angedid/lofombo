@@ -51,7 +51,7 @@
                                     </h5>
                                 </div>
                                 <div class="card-body">
-                                    @if(count(Client::all())) @endif
+                                    @if(count($clients))
                                     <table class="table table-striped table-responsive table-bordered">
                                         <thead class="" style="color: darkred;">
                                         <th scope="col">
@@ -71,7 +71,7 @@
                                         </th>
                                         </thead>
                                         <tbody>
-                                        @foreach(Client::all() as $c)
+                                        @foreach($clients as $c)
                                                 <?php
                                                 $loyaltyaccount = Loyaltyaccount::where('holderid', $c->id)->first();
                                                 ?>
@@ -99,6 +99,7 @@
                                         @endforeach
                                         </tbody>
                                     </table>
+                                    @endif
 
 
                                     {{--<div class="list-group list-group-flush">

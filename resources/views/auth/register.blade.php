@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row justify-content-center">
         @include('layouts.menu')
-        <div class="col-md-8">
+        <div class="col-md-9">
             <div class="card">
                 <div class="card-header"><h5>{{ __('Enregistrer un utilisateur') }}</h5></div>
                 <div class="card-body">
@@ -143,7 +143,7 @@
                                                         data-bs-dismiss="modal">Annuler
                                                 </button>
                                                 <button type="submit" class="btn btn-primary">
-                                                    {{__("Confirmer l'Enregistrement")}}
+                                                    {{__("Confirmer")}}
                                                 </button>
                                             </div>
                                             {{--</form>--}}

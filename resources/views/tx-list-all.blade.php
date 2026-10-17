@@ -36,6 +36,17 @@
                     <div class="card-body">
                         @if(count($txs) > 0)
                             @if(isset($q)) <p> Le resultat de la recherche pour votre requete <b> {{ $q }} </b> est :</p> @endif
+
+                                @if (session('status'))
+                                    <div class="alert alert-success" role="alert">
+                                        {{ session('status') }}
+                                    </div>
+                                @endif
+                                @if (session('error'))
+                                    <div class="alert alert-danger" role="alert">
+                                        {{ session('error') }}
+                                    </div>
+                                @endif
                                 <?php $index = 1; ?>
                                 <table class="table table-striped table-responsive table-bordered">
                                     <thead class="" style="color: darkred;">

@@ -26,6 +26,7 @@
         <div class="login-form">
             <div class="">
                 <div class="">{{ __('Connexion') }}</div>
+                <br/>
 
                 <div class="">
                     <form method="POST" action="{{ route('authentification.client.post') }}" id="login-form">
@@ -53,7 +54,7 @@
                                 <input id="telephone" type="tel"
                                        class="form-control @error('telephone') is-invalid @enderror" name="telephone"
                                        value="{{ old('telephone') }}" required autocomplete="telephone"
-                                       placeholder="{{__("Exemple: ")}} +237691179154"
+                                       placeholder="{{__("Exemple: ")}} 691179154"
                                        onkeyup="removeNonNumericCharaters(this);"
                                        autofocus>
 
@@ -96,7 +97,7 @@
                     </form>
                     <script type="text/javascript">
                         function removeNonNumericCharaters(theInput){
-                            theInput.value = "+" + theInput.value.replace(/\D/g, '');
+                            theInput.value = theInput.value.replace(/\D/g, '');
                         }
                     </script>
                 </div>

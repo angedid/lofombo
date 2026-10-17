@@ -182,6 +182,10 @@
         .stat-card .value{font-size:24px;font-weight:700;color:var(--blue);}
         .stat-card .value.red{color:var(--red);}
 
+        .enterprise_name{
+            color: #4761D8;
+            font-size: 25px;
+        }
         .panel{
             background:var(--white);border-radius:12px;padding:22px 24px;
             box-shadow:0 4px 14px rgba(20,20,50,.06);margin-bottom:22px;
@@ -207,8 +211,9 @@
         }
     </style>
 
+    <link href="{{ asset('css/application-layout.css') }}" rel="stylesheet">
 </head>
-<body style="font-size: initial; font-family: 'DejaVu Sans Light';">
+<body style="font-size: initial; font-family: sans-serif, Inter, sans serif;">
 <div id="app">
     <main class="py-4">
         @yield('content')

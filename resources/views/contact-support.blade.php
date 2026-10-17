@@ -23,8 +23,8 @@
                         <br>
 
                         <div class="row" >
-                            <br>
                             <div class="col col-md-6" >
+                                <br>
                                 <h4>
                                     {{__("Vous avez une question ?")}}
                                 </h4>
@@ -41,7 +41,6 @@
                                             {{__("Téléphone")}}
                                         </h4>
                                         <ul style="font-size: 1.25em;">
-                                            <li>(+237)691179154</li>
                                             <li>(+237)697392742</li>
                                             <li>(+237)695164930</li>
                                         </ul>
@@ -51,8 +50,7 @@
                                             {{__("Email")}}
                                         </h4>
                                         <ul style="font-size: 1.25em;">
-                                            <li>support@lofombo.com</li>
-                                            <li>lofombocm@gmail.com</li>
+                                            <li>cmlofombo@gmail.com</li>
                                             <li>kanakemda@yahoo.com</li>
                                             <li>didnkallaehawe@gmail.com</li>
                                         </ul>
@@ -62,9 +60,9 @@
                                             {{__("Réseaux sociaux")}}
                                         </h4>
                                         <ul style="font-size: 1.25em;">
-                                            <li>Facebook</li>
+                                            {{--<li>Facebook</li>
                                             <li>WhatsApp</li>
-                                            <li>...</li>
+                                            <li>...</li>--}}
                                         </ul>
                                     </li>
                                 </ol>
@@ -107,7 +105,7 @@
                                         <div class="form-group field" style="margin-bottom: 20px;">
                                             <label for="phone" style="margin-bottom: 7px;">{{__("Numéro Tel")}}</label>
                                             <input name="phone" type="tel" class="form-control form-control @error('phone') is-invalid @enderror"
-                                                   id="phone" placeholder="{{__("+237691179154")}}" onkeyup="removeNonNumericCharaters(this);">
+                                                   id="phone" placeholder="{{__("691179154")}}" onkeyup="removeNonNumericCharaters(this);">
                                             @error('phone')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -142,7 +140,7 @@
                                     </form>
                                     <script type="text/javascript">
                                         function removeNonNumericCharaters(theInput){
-                                            theInput.value = "+" + theInput.value.replace(/\D/g, '');
+                                            theInput.value = theInput.value.replace(/\D/g, '');
                                         }
                                     </script>
                                 </div>

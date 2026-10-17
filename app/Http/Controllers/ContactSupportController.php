@@ -15,7 +15,10 @@ class ContactSupportController extends Controller
 
     public function getContactUsMessage(Request $request, string $locale)
     {
-        //dd($request);
+        $phone0 = $request->input('phone');
+        $request->merge([
+            'phone' => "+237".$phone0,
+        ]);
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255|min:2',
             'email' => 'required|string|email|max:255',
@@ -60,7 +63,7 @@ class ContactSupportController extends Controller
         }
 
         $emailData = [
-            'emails' => ['lofombocm@gail.com', 'didnkallaehawe@gmail.com', 'kanakemda@yahoo.com'],
+            'emails' => ['cmlofombo@gmail.com', 'didnkallaehawe@gmail.com', 'kanakemda@yahoo.com'],
             'email' => $request->email,
             'subject' => trim($request->get('subject')),
             'phone' => trim($request->get('phone')),

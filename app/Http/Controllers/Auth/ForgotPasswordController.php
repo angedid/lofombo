@@ -57,6 +57,7 @@ class ForgotPasswordController extends Controller
         ],[
             'email.required' => __('L\'adresse email est obligatoire.'),
             'email.email' => __('L\'adresse email n\'est pas valide.'),
+            'email.exists' => __('L\'adresse email n\'est pas reconnue.'),
         ]);
 
         if ($validator->fails()){

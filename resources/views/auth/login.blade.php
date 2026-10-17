@@ -34,7 +34,7 @@
                     <h1><span>{{ __('Connexion') }}</span></h1>
                 <p class="sub">
                     <span >
-                        {{__("Accédez à votre espace d'administration.")}}
+                        {{__("Accédez à votre espace sur la plateforme.")}}
                     </span>
                 </p>
 

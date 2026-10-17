@@ -212,7 +212,7 @@ Route::prefix('{locale}')->where(['locale' => '[a-zA-Z]{2}'])->middleware([Ensur
         Route::post('/home/users/{userid}', [RegisterController::class, 'putRegistration'])->name('user.update-parameter.index.put');
         Route::get('/home/users', [RegisterController::class, 'getAllUser'])->name('user.list');
         Route::get('/home/users/notifs/{userid}', [NotificationController::class, 'showNotifs'])->name('notifs.index');
-
+        Route::get('/simple-user-home', [HomeController::class, 'simpleUserHome'])->name('simple.user.home');
     });
 
     Route::get('/registration-invitations/{id}', [RegistratIoninvitationController::class, 'index'])->name('registration.invitation-response.index');
@@ -267,6 +267,7 @@ Route::prefix('{locale}')->where(['locale' => '[a-zA-Z]{2}'])->middleware([Ensur
         Route::post('/client/voucher', [VoucherControler::class, 'postGenVoucher'])->name('vouchers.post');
         Route::get('/notifications/{notificationid}', [NotificationController::class, 'showNotificationView'])->name('notifications.index');
         Route::post('/notifications/{notificationid}', [NotificationController::class, 'setAsReadOrUnread'])->name('notifications.index.read-or-unread');
+
     });
 
 

@@ -153,6 +153,11 @@
             text-align:center;padding:16px;color:var(--white);font-size:12px;opacity:.85;
         }
 
+        .enterprise_name{
+            color: #4761D8;
+            font-size: 25px;
+        }
+
         /* ---------- MAIN APP ---------- */
         #page-main{display:none;min-height:100vh;flex-direction:column;}
         .app-body{display:flex;flex:1;min-height:0;}
@@ -228,8 +233,9 @@
         }*/
 
     </style>
+    <link href="{{ asset('css/application-layout.css') }}" rel="stylesheet">
 </head>
-<body style="font-size: initial; font-family: 'DejaVu Sans Light';">
+<body style="font-size: initial; font-family: sans-serif, Inter, sans serif;">
 
 
 <?php
@@ -268,6 +274,7 @@ if (count(SuperAdmin::all()) === 0) {
                 </ul>
 
 
+                <ul class="navbar-nav ms-auto"><li class="nav-item">@include('layouts.language-switcher')</li></ul>
                 <!-- Right Side Of Navbar notifications-modal -->
                 <ul class="navbar-nav ms-auto">
                     <!-- Authentication Links -->
@@ -286,7 +293,7 @@ if (count(SuperAdmin::all()) === 0) {
                                     {{ Auth::guard('super_admin')->user()->name }}
                                 </a>
 
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                <div class="dropdown-menu dropdown-menu-end account-menu" aria-labelledby="navbarDropdown">
 
                                     <a class="dropdown-item" href="{{ route('super-admin.password.reset',['locale' => GuestController::getApplicationLocal()])}}">
                                         Modifier mot de passe

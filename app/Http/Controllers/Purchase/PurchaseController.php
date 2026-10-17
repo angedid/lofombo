@@ -49,6 +49,13 @@ class PurchaseController extends Controller
         //session()->flash('error', $request->get('clientid'));
         //return back()->withErrors(['error' => $request->get('clientid')]);
         //dd($request->all());
+
+        /*
+         $telephone0 = $request->input('telephone');
+        $request->merge([
+            'telephone' => "+237".$telephone0,
+        ]);
+         */
         $validator = Validator::make($request->all(), [
             'clientid' => 'required|phone|max:255|min:2|exists:clients,telephone',
             'amount' => 'required|numeric|min:1',
@@ -346,6 +353,8 @@ class PurchaseController extends Controller
                 ]
             );
 
+            $clientNewPoint = $totalPoint;
+
 
             //$configuration = Config::where('is_applicable', true)->first();
 
@@ -424,7 +433,7 @@ class PurchaseController extends Controller
                     array_push($message,  '"' . $possibleReward->name . ' ' . __("pour") . '"' . __("un bon de type") . ' "' . $level->name . '" ' . __("correspondant à") . ' ' . $level->point. ' points ');
                 }
                 if ($clientEmail){
-                    $data = ['email' => $clientEmail, 'name' => $clientName, 'clientLoginUrl' => $link, 'msg' => $message];
+                    $data = ['email' => $clientEmail, 'name' => $clientName, 'totalPoint' => $clientNewPoint, 'clientLoginUrl' => $link, 'msg' => $message];
                     ProcessSendEMailVoucherAvailableJob::dispatch($data);
 
                     $notifid = Str::uuid()->toString();
@@ -457,7 +466,7 @@ class PurchaseController extends Controller
                     );
 
                 }
-                $data = ['email' => Auth::user()->email, 'name' => $clientName, 'clientLoginUrl' => $link, 'msg' => $message];
+                $data = ['email' => Auth::user()->email, 'name' => $clientName,  'totalPoint' => $clientNewPoint, 'clientLoginUrl' => $link, 'msg' => $message];
                 ProcessSendEMailVoucherAvailableJob::dispatch($data);
                 $notifid = Str::uuid()->toString();
                 $notifgenerator = Auth::user()->id;
@@ -532,7 +541,11 @@ class PurchaseController extends Controller
 
         $msg = __("Enregistrement Achat réussi");
         session()->flash('status', $msg);
-        return back()->with('status', $msg);//->withSuccess(['status' => 'Achat enregistre avec succes.', 'purchase' => $purchase]);
+        $locale = GuestController::getApplicationLocal();
+        return redirect()->route('home.loyaltytransactions.all',
+            ['locale' => $locale])->with('status', $msg);
+
+        //return back()->with('status', $msg);//->withSuccess(['status' => 'Achat enregistre avec succes.', 'purchase' => $purchase]);
     }
 }
 

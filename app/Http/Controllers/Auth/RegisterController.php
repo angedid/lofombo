@@ -224,7 +224,10 @@ class RegisterController extends Controller
         //Auth::login($user);
         $msg = __('Utilisateur enregistré avec succès !');
         session()->flash('status', $msg);
-        return back()->with('status', $msg);//->withSuccess('status', 'Great! You have Successfully Registered.');
+        $locale = GuestController::getApplicationLocal();
+        return redirect()->route('utilisateurs.admin',
+            ['locale' => $locale])->with('status', $msg);
+        //return back()->with('status', $msg);//->withSuccess('status', 'Great! You have Successfully Registered.');
     }
 
     public function getAllUser(){
@@ -232,7 +235,7 @@ class RegisterController extends Controller
     }
 
     public function getAllUserForadministrationm(){
-        $users = User::where('id', '!=', Auth::user()->id)->get();
+        $users = User::where('id', '!=', Auth::user()->id)->orderByDesc('created_at')->get();
         return view('auth.all-users-admin', ['users' => $users]);
     }
 

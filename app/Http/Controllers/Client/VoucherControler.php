@@ -442,7 +442,8 @@ class VoucherControler extends Controller
 
         $msg = __('Bon généré avec succès.');
         session()->flash('status', $msg);
-        return redirect()->back()->with('status', $msg);
+        return redirect()->route('clients.getVouchersAll.all')->with('status', $msg);
+        //return redirect()->back()->with('status', $msg);
     }
 
     public function generateVoucherSerialNumber():string

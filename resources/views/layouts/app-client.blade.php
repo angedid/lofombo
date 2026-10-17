@@ -157,6 +157,11 @@
             text-align:center;padding:16px;color:var(--white);font-size:12px;opacity:.85;
         }
 
+        .enterprise_name{
+            color: #4761D8;
+            font-size: 25px;
+        }
+
         /* ---------- MAIN APP ---------- */
         #page-main{display:none;min-height:100vh;flex-direction:column;}
         .app-body{display:flex;flex:1;min-height:0;}
@@ -232,8 +237,9 @@
         }*/
 
     </style>
+    <link href="{{ asset('css/application-layout.css') }}" rel="stylesheet">
 </head>
-<body style="font-size: initial; font-family: 'DejaVu Sans Light';">
+<body style="font-size: initial; font-family: Sora, sans-serif, Inter, sans serif;">
 <div id="app">
 
     <?php
@@ -317,20 +323,21 @@
                          alt="">
                 @endif
 
+                <span class="enterprise_name">
+                    @php
+                        $config = Config::where('is_applicable', true)->first();
+                    @endphp
+                            @if($config != null && $config->enterprise_name)
+                                &nbsp;  {{$config->enterprise_name}}
+                            @endif
+                </span>
+
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                 <span class="navbar-toggler-icon"></span>
             </button>
-
-            @if(Auth::guard('client')->check())
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
-                    </ul>
-                </div>
-            @endif
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <!-- Left Side Of Navbar -->
@@ -438,72 +445,7 @@
                 <ul class="navbar-nav ms-auto">
 
                     <li class="nav-item">
-                        <div class="form-row align-items-center">
-                            <div class="col-auto">
-                                <div class="input-group mb-2">
-                                    <div class="input-group-prepend">
-                                        <div class="">
-                                            <img src="{{asset('images/fr.svg')}}" alt="" height="25" width="25" id="flag" style="margin-top: 5px;"> &nbsp;
-                                        </div>
-                                    </div>
-                                    <select class="form-control" name="language" onchange="submitLanguageForm(this.value);"
-                                            id="language_selector" style="display: inline; border: 0 white solid; background-color: #FFFFFF; font-size: 1em; font-weight: bolder;">
-                                        @foreach(config('app.available_locales') as $locale)
-                                            <option value="{{ $locale }}" class="active"
-                                                {{$locale === Request::segment(1) ? 'selected' : ''}}>
-                                                {{ strtoupper($locale) === 'FR' ? "Français" : (strtoupper($locale) === 'EN' ? "English" : "Français") }}{{-- - {{Request::segment(1)}} - {{$locale}}--}}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <form method="GET" action="" id="select_language_form">
-                            {{--@csrf--}}
-                        </form>
-
-                        <script type="text/javascript">
-                            function submitLanguageForm(locale){
-                                var form = document.getElementById('select_language_form');
-                                //var currentUrl = window.location.href;
-                                var path = window.location.pathname;
-                                if(path.length > 0){
-                                    var pathWitoutTrailingSlash = path.substring(1, path.length);
-                                    var pathArray = pathWitoutTrailingSlash.split('/');
-                                    pathArray[0] = locale;
-
-                                    var newPathname = "";
-                                    for (i = 0; i < pathArray.length; i++) {
-                                        newPathname += "/";
-                                        newPathname += pathArray[i];
-                                    }
-                                    form.action = window.location.protocol + "//" + window.location.host + newPathname;
-                                    form.submit();
-                                }
-                            }
-
-                            function setFlag(){
-                                let path = window.location.pathname;
-                                if(path.length > 0){
-                                    let pathWitoutTrailingSlash = path.substring(1, path.length);
-                                    let pathArray = pathWitoutTrailingSlash.split('/');
-                                    let  locale = pathArray[0];
-                                    console.log("Local from url = " + locale);
-                                    let language = locale.toUpperCase();
-                                    let flagImg = document.getElementById("flag");
-                                    let flagFile = "";
-                                    if(language === "FR"){
-                                        flagFile = "fr.svg";
-                                    }else{
-                                        flagFile = "gb.svg";
-                                    }
-                                    let imgsrc = window.location.protocol + "//" + window.location.host + "/images/" + flagFile;
-                                    flagImg.setAttribute('src', imgsrc);
-                                }
-                            }
-                            setFlag();
-                        </script>
+                        @include('layouts.language-switcher')
 
                     </li>
                 </ul>
@@ -549,8 +491,8 @@
                                 <strong>{{ Auth::guard('client')->user()->name }}</strong>
                             </a>
 
-                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown"
-                                 style="border: 2px #164fa9 solid; font-weight: bold; font-size: 1em;">
+                            <div class="dropdown-menu dropdown-menu-end account-menu" aria-labelledby="navbarDropdown"
+                                 >
 
                                 <a class="dropdown-item"
                                    href="{{ route('clients.form.update.client', Auth::guard('client')->user()->id)}}">

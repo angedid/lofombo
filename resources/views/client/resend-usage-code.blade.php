@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row justify-content-center">
             @include('layouts.client-menu')
-            <div class="col-md-8">
+            <div class="col-md-9">
                 <div class="card">
                     <div class="card-header">{{ __("Me renvoyer le code d'utilisation") }}</div>
                     <div class="card-body">

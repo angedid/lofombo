@@ -64,7 +64,7 @@
 
                             <div class="field">
                                 <label for="password-confirm" class="">
-                                    <b><span>{{ __('Confirmer le mot de passe') }}
+                                    <b><span>{{ __('Confirmer') }}
                                             <b class="" style="color: red;">*</b></span></b>
                                 </label>
                                 {{--<div class="col-md-6">--}}

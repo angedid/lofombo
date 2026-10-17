@@ -5,7 +5,7 @@
     <div class="container">
         <div class="row justify-content-center">
             @include('layouts.menu')
-            <div class="col-md-8">
+            <div class="col-md-9">
                 <div class="card">
                     <div class="card-header"><h5>{{ __('Enregistrer un client') }}</h5></div>
 
@@ -69,7 +69,7 @@
                                            class="form-control @error('telephone') is-invalid @enderror"
                                            name="telephone" value="{{ old('telephone') }}"
                                            required autocomplete="telephone"
-                                           placeholder="{{__("Exemple: ")}} +237691179154"
+                                           placeholder="{{__("Exemple: ")}} 691179154"
                                            onkeyup="removeNonNumericCharaters(this);"
                                     >
 
@@ -256,7 +256,7 @@
                                     return true;
                                 }
                                 function removeNonNumericCharaters(theInput){
-                                    theInput.value = "+" + theInput.value.replace(/\D/g, '');
+                                    theInput.value = theInput.value.replace(/\D/g, '');
                                 }
                             </script>
                         </form>

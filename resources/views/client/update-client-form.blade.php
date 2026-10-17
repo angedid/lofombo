@@ -432,7 +432,7 @@
                                     }
 
                                     function removeNonNumericCharaters(theInput){
-                                        theInput.value = "+" + theInput.value.replace(/\D/g, '');
+                                        theInput.value = theInput.value.replace(/\D/g, '');
                                     }
                                 </script>
                             </form>

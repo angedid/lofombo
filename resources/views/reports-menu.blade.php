@@ -22,7 +22,7 @@
 
                     </div>--}}
                     <div class="card-body" >
-                        @if (session('status'))
+                        {{--@if (session('status'))
                             <div class="alert alert-success" role="alert">
                                 {{ session('status') }}
                             </div>
@@ -31,100 +31,92 @@
                             <div class="alert alert-danger" role="alert">
                                 {{ session('error') }}
                             </div>
-                        @endif
+                        @endif--}}
                         <div>
                             <div
                                 style="
-                                text-align: center;
+                                /*text-align: center;
                                 width: 100%;
                                 font-size: 3em;
                                 color: #164fa9;
                                 font-weight: bold;
                                 margin-top: 15px;
-                                margin-bottom: 25px;
+                                margin-bottom: 25px;*/
                                 ">
                                 <h2>{{__("Tableau de bord")}}</h2>
+                                <br/>
+                                <p>
+                                    {{__("Vue d'ensemble de votre programme de fidélité: Clients, points et récompenses en coup d'œil.")}}
+                                </p>
+                                <br/>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col col-md-4">
-                                <button class="btn btn-danger btn-lg"
-                                        style="width: 100%;" onclick="">
-                                   <span style="color: white; font-size: xx-large;">
+                        <div class="dashboard-stats">
+                            <div class="dashboard-stat">
+                                <div class="stat-card">
+                                   <span class="label">
                                        {{__("Achats")}}
                                        <br>
                                        <strong>{{Purchase::count()}} ({{Purchase::sum('amount')}} {{isset($config) ? $config->currency_name : 'FCFA'}})</strong>
                                    </span>
-                                </button>
+                                </div>
                             </div>
-                            <div class="col col-md-4">
-                                <button class="btn btn-primary btn-lg"
-                                        style="width: 100%;">
-                                    <span style="color: white; font-size: xx-large;">
+                            <div class="dashboard-stat">
+                                <div class="stat-card">
+                                    <span class="label">
                                         {{__('Récompenses disponibles')}}
                                         <br>
                                         <strong>{{Reward::where('active', true)->count()}} ({{Reward::where('active', true)->sum('value')}} {{isset($config) ? $config->currency_name : 'FCFA'}})</strong>
                                    </span>
-                                </button>
+                                </div>
                             </div>
 
-                            <div class="col col-md-4">
-                                <button class="btn btn-success btn-lg"
-                                        style="width: 100%;">
-                                <span style="color: white; font-size: xx-large;">
+                            <div class="dashboard-stat">
+                                <div class="stat-card">
+                                <span class="label">
                                    {{__('Bons de Fidélité Générés')}}
                                     <strong><br>{{Voucher::count()}}</strong>
                                </span>
-                                </button>
+                                </div>
                             </div>
 
-                        </div>
-                        <br>
 
-                        <div class="row">
-                            <div class="col col-md-4">
-                                <button class="btn btn-info btn-lg"
-                                        style="width: 100%;">
-                                   <span style="color: white; font-size: x-large;">
-                                       {{ __("Clients") }}
-                                       <br><br>
-                                       <strong>{{Client::count()}}</strong>
-                                   </span>
-                                </button>
+                            <div class="dashboard-stat">
+                                <div class="stat-card">
+                                <span class="label">
+                                   {{__('Bonus de Fidélité consommés')}}
+                                    <strong><br>{{Voucher::where('is_used', true)->sum('point')}}</strong>
+                               </span>
+                                </div>
                             </div>
-                            <div class="col col-md-4">
-                                <button class="btn btn-warning btn-lg"
-                                        style="width: 100%;">
-                                    <span style="color: black; font-size: x-large;">
+
+
+                            {{--<div class="dashboard-stat">
+                                <div class="stat-card">
+                                    <span class="label">
                                         {{ __("Articles") }}
-                                        <br><br>
+                                        <br>
                                         <strong>{{Product::count()}}</strong>
                                    </span>
-                                </button>
-                            </div>
+                                </div>
+                            </div>--}}
 
-                            <div class="col col-md-4">
-                                <button class="btn btn-secondary btn-lg"
-                                        style="width: 100%;">
-                                <span style="color: white; font-size: x-large;">
+                            {{--<div class="dashboard-stat">
+                                <div class="stat-card">
+                                <span class="label">
                                    {{ __("Transactions") }}
                                     <br><strong>{{Loyaltytransaction::count()}}
                                         ({{Loyaltytransaction::sum('amount')}} {{isset($config) ? $config->currency_name : 'FCFA'}})</strong>
                                </span>
-                                </button>
-                            </div>
+                                </div>
+                            </div>--}}
 
-                        </div>
 
-                        <br>
-
-                        <div class="row">
-                            <div class="col col-md-4">
-                                <button class="btn btn-warning btn-lg"
-                                        style="width: 100%;">
-                               <span style="color: white; font-size: x-large;">
+                            <div class="dashboard-stat">
+                                <div class="stat-card">
+                               <span class="label">
                                    {{ __("Bonus initial") }}
-                                   <br><br>
+                                   <br>
                                    <?php
                                    $txs = Loyaltytransaction::where('gift_amount', '!=', 0)->get();
                                    $totalGiftPoint = 0;
@@ -136,14 +128,55 @@
                                    ?>
                                    <strong>{{ $totalGiftPoint }} {{ $totalGiftPoint ==1 ? "point" : "points"}}</strong>
                                </span>
-                                </button>
+                                </div>
                             </div>
-                            <div class="col col-md-4">
-                                <button class="btn btn-info btn-lg"
-                                        style="width: 100%;">
-                                <span style="color: black; font-size: x-large;">
+
+                            <div class="dashboard-stat">
+                                <div class="stat-card">
+                                   <span class="label">
+                                       {{ __("Clients") }}
+                                       <br>
+                                       <strong>{{Client::count()}}</strong>
+                                   </span>
+                                </div>
+                            </div>
+
+                            <div class="dashboard-stat">
+                                <div class="stat-card">
+                                   <span class="label">
+                                       {{ __("Clients récompensables") }}
+                                       <br>
+                                       @php
+                                           $numClient = 0;
+                                           $clients = Client::all();
+                                           $config = Config::where('is_applicable', true)->first();
+                                           $levels = json_decode($config->levels);
+                                           $minPoint = $levels[0]->point;
+                                           foreach ($levels as $level){
+                                               if ($level->point < $minPoint){
+                                                   $minPoint = $level->point;
+                                               }
+                                           }
+                                           foreach ($clients as $client){
+                                               $loyaltyaccount = Loyaltyaccount::where('holderid', $client->id)->first();
+                                               $pointBalance = (int)decrypt($loyaltyaccount->point_balance);
+                                               if ($pointBalance >= $minPoint){
+                                                   $numClient = $numClient + 1;
+                                               }
+                                           }
+                                           /*
+                                            [{"id":"b60b8d3b-0cce-4fff-85c6-cc5871f7f090","config":"368cc0cb-4318-472d-8adf-4dcbb7eb5032","name":"CLASSIC","point":50},{"id":"235867a8-2816-4f71-9a88-3a2e12da1070","config":"368cc0cb-4318-472d-8adf-4dcbb7eb5032","name":"PREMIUM","point":200}]
+                                            */
+                                       @endphp
+                                       <strong>{{$numClient}}</strong>
+                                   </span>
+                                </div>
+                            </div>
+                            {{--<div class="dashboard-stat">
+                                <div class="stat-card">
+                                <span class="label">
                                     {{ __("Bonus Anniversaire") }}
-                                    <br><br>
+                                    <br>
                                     <?php
                                         $txs = Loyaltytransaction::where('transactiontype', 'ENREGISTREMENT ACHAT')->where('birthdate_amount', '!=', 0)->get();
                                         $totalPoint = 0;
@@ -155,8 +188,8 @@
                                     ?>
                                     <strong>{{ $totalPoint }} {{ $totalPoint ==1 ? "point" : "points" }}</strong>
                                </span>
-                                </button>
-                            </div>
+                                </div>
+                            </div>--}}
 
                             {{--<div class="col col-md-4">
                                 <button class="btn btn-secondary btn-lg"
@@ -167,7 +200,16 @@
                            </span>
                                 </button>
                             </div>--}}
+                        </div>
+                        <br/>
 
+                        <div>
+                            <H2>
+                                {{__("Bienvenue sur LOFOMBO")}}
+                            </H2>
+                            <p>
+                                {{__("LOFOMBO est votre solution complète de gestion de fidélité client: Enregistrement des achats, Suivi des points, gestion des récompenses et des bons de fidélité, le tout centralisé dans un seul tableau de bord. Utilisez le menu de gauche pour naviguer entre les différents modules de la plateforme.")}}
+                            </p>
                         </div>
                         {{--<div class="row" style="border-bottom: 3px black solid; margin-top: 20px;">
 

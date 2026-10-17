@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Models\Config;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -29,8 +30,9 @@ class MailForVoucherSendUsageCode extends Mailable
      */
     public function envelope(): Envelope
     {
+        $config = Config::where('is_applicable', true)->first();
         return new Envelope(
-            subject: __("Votre code d'utilisation de bon") . '.',
+            subject: __('PROGRAMME DE FIDELITE LOFOMBO DE ') . $config->enterprise_name . ' – ' .  __("Votre code d'utilisation de bon") . '.',
         );
     }
 

@@ -36,9 +36,6 @@
                                     {{__("Nom")}}: &nbsp; &nbsp; {{$client->name}}
                                     <strong style="display: inline; position: relative; float:right; color: darkred;">
                                         {{ __('Solde Fidélité').': ' }} {{intval(strval(decrypt($loyaltyAccount->point_balance)))}}
-                                        @if(\Illuminate\Support\Facades\Auth::user()->is_admin)
-                                            {{'Points  (' . $loyaltyAccount->amount_balance . ' ' . $configuration->currency_name . ')'}}
-                                        @endif
                                     </strong>
                                 </h5>
                             </a>
@@ -141,7 +138,7 @@
 
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                     data-bs-target="#confirm-update-client-modal">
-                                {{ __("Modifier Client") }}
+                                {{ __("Modifier") }}
                             </button>
 
                         <div class="alert alert-{{($client->active)?'success':'danger'}}"
@@ -415,12 +412,12 @@
 
                                 <div class="modal fade modal-lg" id="confirm-update-client-modal" data-bs-backdrop="static"
                                      data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
-                                     aria-hidden="true">
+                                     aria-hidden="true" >
                                     <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h1 class="modal-title fs-5" id="staticBackdropLabel">
-                                                    {{__("Confirmez l'activation du client")}}
+                                                    {{__("Modification des informations du client ")}}
                                                     <strong
                                                         style="color: darkred;">{{$client->name}}</strong></h1>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
@@ -806,13 +803,18 @@
                                                     </div>
 
 
+                                                   {{-- <br/><br/><br/><br/><br/><br/><br/><br/><br/>
+                                                    <br/><br/><br/><br/><br/><br/><br/><br/><br/>
+                                                    <br/><br/><br/><br/><br/><br/><br/><br/><br/>--}}
+
+
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-danger"
                                                             data-bs-dismiss="modal">Annuler
                                                     </button>
                                                     <button type="submit" class="btn btn-success">
-                                                        {{__("Modifier Client")}}
+                                                        {{__("Modifier")}}
                                                     </button>
                                                 </div>
 

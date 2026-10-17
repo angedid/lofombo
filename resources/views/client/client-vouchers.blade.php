@@ -154,7 +154,7 @@
                                                                 <div class="modal-header">
                                                                     <h1 class="modal-title fs-5"
                                                                         id="staticBackdropLabel">
-                                                                        {{__("Confirmer l'activation du bon")}}
+                                                                        {{__("Confirmer")}}
                                                                         <strong
                                                                             style="color: darkred;">{{$voucher->serialnumber}}</strong>
                                                                     </h1>

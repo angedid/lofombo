@@ -9,7 +9,7 @@
     <div class="container">
         <div class="row justify-content-center">
             @include('layouts.menu')
-            <div class="col-md-8">
+            <div class="col-md-9">
                 <div class="card">
                     <div class="card-header">
                         <h5 style="display: inline;">{{ __("Article de la plateforme") }}</h5>

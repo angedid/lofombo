@@ -6,7 +6,7 @@
 <div class="container">
     <div class="row justify-content-center">
         @include('layouts.menu')
-        <div class="col-md-8">
+        <div class="col-md-9">
             <div class="card">
                 <div class="card-header" >
                     <h5>{{ __('Réinitialisation du mot de passe') }}</h5>

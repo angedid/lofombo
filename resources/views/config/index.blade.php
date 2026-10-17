@@ -552,7 +552,7 @@
                                 {{--</div>--}}
                             </div>
 
-                            <div class="field">
+                            {{--<div class="field">
                                 <label for="enterprise_logo" class="">
                                     <b><span>{{ __('Logo Raison Sociale / Entreprise')}}</span></b>
                                     @if(count(Config::where('is_applicable', true)->get()) === 1)
@@ -565,7 +565,6 @@
                                     @endif
 
                                 </label>
-                                {{--<div class="col-md-7">--}}
                                     <input id="enterprise_logo" type="file"
                                            class="form-control @error('enterprise_logo') is-invalid @enderror"
                                            name="enterprise_logo" onchange="toggleLogoSizeIndicator();">
@@ -595,8 +594,8 @@
                                     <span style="display: none;" id="alert_logo_size">
                                         {{ __("Le volume du fichier a dépassé la limite requise (10MB).") }}
                                     </span>
-                                {{--</div>--}}
-                            </div>
+
+                            </div>--}}
                             <div class="field">
                                 <div class="">
                                     <button type="submit" class="btn btn-primary">

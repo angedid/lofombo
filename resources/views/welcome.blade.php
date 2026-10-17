@@ -42,11 +42,11 @@
                                     <h4>{{ session('error') }}</h4>
                                 </div>
                             @endif--}}
-                            @if(count(\App\Models\Client::all()))
+                            {{--@if(count(\App\Models\Client::all()))
                                 <a href="{{ route('authentification.client') }}" class="btn btn-primary btn-lg" style="background: #164fa9; border: 1px #164fa9 solid; font-weight: bold;">
                                     <strong style="font-size: xx-large; font-weight: bold;">Etes-vous client? Cliquez ici</strong>
                                 </a>
-                            @endif
+                            @endif--}}
 
                             @if(\Illuminate\Support\Facades\Auth::check())
                                 @if(\Illuminate\Support\Facades\Auth::user()->is_admin)
