@@ -84,7 +84,7 @@ class VoucherControler extends Controller
             return redirect()->back()->with('error', __("Code invalide"));
         }
 
-        $level = json_decode($request->get('level'));
+        $level = json_decode($request->input('level'));
         $configid = $level->config;
         $config = Config::where('id', $configid)->first();
         if ($config === null) {
@@ -442,6 +442,9 @@ class VoucherControler extends Controller
 
         $msg = __('Bon généré avec succès.');
         session()->flash('status', $msg);
+        if (Auth::guard('client')->check()) {
+            return redirect()->back()->with('status', $msg);
+        }
         return redirect()->route('clients.getVouchersAll.all')->with('status', $msg);
         //return redirect()->back()->with('status', $msg);
     }

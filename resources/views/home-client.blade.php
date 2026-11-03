@@ -30,7 +30,7 @@
                             <h5>{{ __('Accueil') }}</h5>
                         </div>
                         <div class="card-body" style="border: 0 red solid;">
-                            {{--@if (session('status'))
+                            @if (session('status'))
                                 <div class="alert alert-success" role="alert">
                                     {{ session('status') }}
                                 </div>
@@ -39,7 +39,7 @@
                                 <div class="alert alert-danger" role="alert">
                                     {{ session('error') }}
                                 </div>
-                            @endif--}}
+                            @endif
                             <div class="row justify-content-center">
                                 <h4 style="font-size: 1.8em; font-weight: bold; color: #164fa9; margin-bottom: 20px; width: 100%; text-align: center;">
                                     <br>{{__("BONS DE FIDELITE DISPONIBLES")}}
@@ -304,6 +304,7 @@
                                                                                     </a>
                                                                                 @endif
                                                                                 <a class="dropdown-item btn btn-link" href="{{route('vouchers.download', $voucher->id)}}"
+                                                                                   target="_blank" rel="noopener noreferrer"
                                                                                    style="text-decoration: none;">
                                                                                     <img src="{{asset('images/icons8-downloading-updates-20.png')}}" alt="{{__('Télécharger')}}">
                                                                                     {{ __("Télécharger") }}

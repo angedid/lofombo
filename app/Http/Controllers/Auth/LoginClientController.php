@@ -80,6 +80,7 @@ class LoginClientController extends Controller
     public function postLoginClientView(Request $request): RedirectResponse
     {
         $telephone0 = $request->input('telephone');
+        //dd($telephone0);
         $request->merge([
             'telephone' => "+237".$telephone0,
         ]);
@@ -122,7 +123,7 @@ class LoginClientController extends Controller
             fwrite($h, json_encode( json_encode($credentials)));
             fclose($h);*/
             //return redirect()->route('home.client')->withSuccess('status', 'You have Successfully loggedin');
-            session()->flash('status', __('Connexion réussie !'));
+            //session()->flash('status', __('Connexion réussie !'));
             return redirect()->route('home.client')->withSuccess('status', __('Connexion réussie !'));
         }
         //return redirect("auth/client")->back()->withError(['message' => 'Invalid Telephone or password']);

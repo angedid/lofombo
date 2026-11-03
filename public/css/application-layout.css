@@ -44,13 +44,38 @@
 }
 @media (max-width: 480px) { .dashboard-stats { grid-template-columns: minmax(0, 1fr); } }
 
+/* Keep every modal within the viewport, including dialogs without the
+   Bootstrap scrollable class. Allow scrolling as a fallback for custom content. */
+.modal .modal-dialog {
+    --app-modal-margin: .5rem;
+    --app-modal-height: calc(100vh - 2 * var(--bs-modal-margin, var(--app-modal-margin)));
+    --app-modal-height: calc(100dvh - 2 * var(--bs-modal-margin, var(--app-modal-margin)));
+    max-height: var(--app-modal-height);
+}
+@media (min-width: 576px) {
+    .modal .modal-dialog { --app-modal-margin: 1.75rem; }
+}
+.modal .modal-content {
+    max-height: var(--app-modal-height);
+    min-height: 0;
+    overflow-y: auto;
+}
 /* Forms between modal-content and modal-body must participate in flex sizing. */
-.modal-dialog-scrollable .modal-content > form {
+.modal .modal-content > form {
     display: flex;
     flex-direction: column;
     flex: 1 1 auto;
     min-height: 0;
-    overflow: hidden;
+    overflow-y: auto;
+}
+.modal .modal-body {
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+}
+.modal .modal-header,
+.modal .modal-footer {
+    flex-shrink: 0;
 }
 
 /* Account actions share the sidebar palette and typography across roles. */
