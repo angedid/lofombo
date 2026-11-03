@@ -8,11 +8,6 @@ ARG GID=1000
 ARG NODE_VERSION=22.0.0
 
 ENV POSTGRES_HOST=host.docker.internal
-
-# Install Supervisor and other dependencies
-RUN apt-get update && apt-get install -y \
-    supervisor \
-    && rm -rf /var/lib/apt/lists/*
 # Install system dependencies and build libraries
 RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
@@ -25,6 +20,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libicu-dev \
     libzip-dev \
     && docker-php-ext-install -j$(nproc) \
+    pdo_mysql \
+    pdo_pgsql \
     pgsql \
     intl \
     zip \
@@ -35,8 +32,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
     && apt-get autoremove -y && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-RUN docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
-    && docker-php-ext-install pdo pdo_pgsql pgsql
 # Use ARG to define environment variables passed from the Docker build command or Docker Compose.
 ARG XDEBUG_ENABLED
 ARG XDEBUG_MODE
@@ -83,47 +78,24 @@ RUN echo 'export NVM_DIR="$HOME/.nvm"' >> /home/www/.bashrc && \
     echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"' >> /home/www/.bashrc && \
     echo '[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"' >> /home/www/.bashrc
 
-
-
-    
 # Set the working directory
 WORKDIR /var/www/lofombo
 
 COPY . .
 
-# Install supervisord
-#RUN apt-get update && apt-get upgrade -y && apt-get install -y supervisor
-#RUN apt-get clean && apt-get update && apt-get install -y supervisor
-
 #RUN chown -R www-data:www-data /var/www/lofoombo/storage
+
 
 #RUN php artisan migrate --force
 
 # Override the entrypoint to avoid the default php entrypoint
-
-
-
+ENTRYPOINT []
 EXPOSE 8000
 
 RUN export PATH=/usr/bin:$PATH
-
-COPY --chown=root:root laravel-worker.conf /etc/supervisor/conf.d/laravel-worker.conf
-
-RUN mkdir -p /var/log
-
-#RUN php -v
-#RUN php artisan config:clear
-#RUN php artisan cache:clear
-
-ENTRYPOINT []
-
-CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/laravel-worker.conf"]
-
-#  supervisor \
 #RUN chmod -R 777 ./storage
 # Default command to keep the container running
 #CMD ["php artisan migrate --force && php artisan serve --port=8080"]
-#RUN  php artisan migrate  
+RUN  php artisan migrate  
 #CMD ["sh", "-c", "php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=8080"]
-#RUN php artisan queue:work --tries=3 --timeout=90
-#CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
+CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]

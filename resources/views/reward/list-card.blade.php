@@ -7,7 +7,7 @@ $rewards =\App\Models\Reward::where('active', true)->get();
 @endphp
 @if(count($rewards) > 0)
     <br>
-    <h4 style="font-size: 1.8em; font-weight: bold; color: #164fa9; margin-bottom: 20px; width: 100%; text-align: center;">
+    <h4 style="font-size: 1.8em; font-weight: bold; color: #FFFFFF; margin-bottom: 20px; width: 100%; text-align: center;">
         <br>
         @if(count($rewards) > 0) {{__('RECOMPENSES DISPONIBLES')}}@endif
     </h4>

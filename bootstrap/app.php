@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\GuestController;
 use App\Http\Middleware\EnsureApiUserIsAdministrator;
 use App\Http\Middleware\EnsureClientIsActivated;
 use App\Http\Middleware\EnsureLicenseIsActive;
@@ -12,6 +13,7 @@ use App\Http\Middleware\SetLocale;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Illuminate\Session\TokenMismatchException;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -33,5 +35,14 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
-        //
+        // Intercepte l'erreur 419 (TokenMismatch)
+        $exceptions->render(function (TokenMismatchException $e, Request $request) {
+            // Optionnel : Ajoute un message flash pour informer l'utilisateur
+            session()->flash('error', 'Votre session a expiré. Veuillez vous reconnecter.');
+
+            // Redirige vers la route de connexion (souvent nommée 'login')
+            $locale = GuestController::getApplicationLocal();
+            return redirect()->route('welcome', ['locale' => $locale]); //redirect()->route('login');
+        });
+
     })->create();

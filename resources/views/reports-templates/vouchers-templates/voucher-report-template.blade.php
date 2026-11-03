@@ -1,5 +1,6 @@
 @php
     use App\Models\Client;
+    use App\Models\Reward;
     use SimpleSoftwareIO\QrCode\Facades\QrCode;
     use \Illuminate\Support\Carbon;
 @endphp
@@ -15,10 +16,11 @@
                             {{ $config->enterprise_name}}
                         </h1>
                         <h4 style="width: 100%; text-align: right; border-bottom: 0 black solid; text-decoration: underline;">
-                            <i>Le {{Carbon::now()->format('d-m-Y')}}</i>
+                            <i>{{__('Rapport Edité le')}} {{Carbon::now()->format('d-m-Y')}}</i>
                         </h4>
                         <h2>{{__("Rapports sur les Bons de Fidélité")}}</h2>
-                        <span style="width: 100%; text-align: center; border-bottom: 0 black solid; font-size: large; margin-bottom: 30px;">
+                        <span
+                            style="width: 100%; text-align: center; border-bottom: 0 black solid; font-size: large; margin-bottom: 30px;">
                             @php
                                 if ($level == 'ALL'){
                                     $level = __('Tous');
@@ -27,21 +29,21 @@
                                     $state = __('Tous');
                                 }
                             @endphp
-                            <span >{{__("Type") . ': ' . $level}} &nbsp; &nbsp; | &nbsp; &nbsp; {{ __("Etat") .': ' . $state}}</span><br>
+                            <span>{{__("Type") . ': ' . $level}} &nbsp; &nbsp; | &nbsp; &nbsp; {{ __("Etat") .': ' . $state}}</span><br>
                             @if(isset($from))
 
                                 {{ __("Bons de la période du") . ' ' . Carbon::parse($from)->format('d-m-Y') .
                                  __("au") . '  ' . Carbon::parse($to)->format('d-m-Y')}}
                             @else
-                                <span style="width: 100%; text-align: center; border-bottom: 0 black solid; font-size: large; margin-bottom: 30px;">
+                                {{--<span style="width: 100%; text-align: center; border-bottom: 0 black solid; font-size: large; margin-bottom: 30px;">
                                      {{ __('Touts les Bons')}}
-                                </span>
+                                </span>--}}
                             @endif
 
                         </span><br>
                         @if(count($vouchers) > 0)
                                 <?php $index = 1; ?>
-                        <br>
+                            <br>
 
                             <table class="table table-bordered m-3">
                                 <thead class="" style="color: darkred; border: 1px black solid;">
@@ -57,13 +59,16 @@
                                     {{ __("Client") }}
                                 </th>
                                 <th scope="col" style="vertical-align: middle;">
-                                   {{ __("Type") }}
+                                    {{ __("Type") }}
                                 </th>
                                 <th scope="col">
                                     {{ 'Point' }}
                                 </th>
                                 <th scope="col" style="vertical-align: middle;">
                                     {{ __("Etat") }}
+                                </th>
+                                <th scope="col" style="vertical-align: middle;">
+                                    {{ __("Récompense") }}
                                 </th>
                                 <th scope="col" style="vertical-align: middle;">
                                     {{ __("Généré le") }}
@@ -90,7 +95,7 @@
                                             <span style="">
                                                 <?php
                                                     $client = Client::where('id', $voucher->clientid)->first();
-                                                ?>
+                                                    ?>
                                                 {{ $client->name }}</span>
                                             <br>
                                         </td>
@@ -108,13 +113,13 @@
                                         <td style="vertical-align: middle;">
                                                 <?php
                                                 $state = '';
-                                                if (!$voucher->active && !$voucher->is_used){
+                                                if (!$voucher->active && !$voucher->is_used) {
                                                     $state = __('GENERE');
-                                                }elseif($voucher->active && !$voucher->is_used){
+                                                } elseif ($voucher->active && !$voucher->is_used) {
                                                     $state = __('ACTIVE');
-                                                }elseif($voucher->active && $voucher->is_used){
+                                                } elseif ($voucher->active && $voucher->is_used) {
                                                     $state = __('UTILISE');
-                                                }elseif(!$voucher->active && $voucher->is_used){
+                                                } elseif (!$voucher->active && $voucher->is_used) {
                                                     $state = __('INCOHERENT');
                                                 }
 
@@ -123,6 +128,24 @@
                                             <br>
 
                                         </td>
+
+                                        <td style="vertical-align: middle;">
+                                            @php
+                                                $rewardName = "";
+                                                if($voucher->active && $voucher->is_used){
+                                                    $reward = Reward::where('id',$voucher->reward_id)->first();
+                                                    if($reward !== null){
+                                                        $rewardName = $reward->name;
+                                                    }
+
+                                                }
+
+                                            @endphp
+                                            {{$rewardName}}
+                                            <br>
+
+                                        </td>
+
                                         <td style="vertical-align: middle;">
                                             <span>{{ Carbon::parse($voucher->created_at)->format('d-m-Y') }}</span>
                                         </td>
@@ -134,7 +157,7 @@
                                 @endforeach
                                 </tbody>
                             </table>
-                            @else
+                        @else
                             <h4>{{ __('Aucun bon trouvé')}}</h4>
                         @endif
                     </div>

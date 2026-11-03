@@ -15,7 +15,7 @@
                             {{ $config->enterprise_name}}
                         </h1>
                         <h4 style="width: 100%; text-align: right; border-bottom: 0 black solid; text-decoration: underline;">
-                            <i>{{__("Le")}} {{Carbon::now()->format('d-m-Y')}}</i>
+                            <i>{{__("Rapport Edité le")}} {{Carbon::now()->format('d-m-Y')}}</i>
                         </h4>
 
                         <h2>{{ __("Rapports sur les Transactions") }}</h2>

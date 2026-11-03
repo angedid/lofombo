@@ -13,27 +13,14 @@
     }
 @endphp
 
-<div class="col-md-3">
-    <div class="card">
-        <div class="" style="
-                                text-align: center;
-                                width: 100%;
-                                font-size: 3em;
-                                color: #164fa9;
-                                font-weight: bold;
-                                margin-top: 15px;
-                                margin-bottom: 0;
-                                ">
-            <h5 >
-                {{ __('Menu principal') }}
-                {{--<img src="{{asset('images/icons8-triangle-arrow-24.png')}}" alt="" height="15" width="15"/>--}}
-            </h5>
-        </div>
-        <div class="card-body">
-            <div class="list-group list-group-flush">
+<div class="col-md-3 sidebar">
+    <div class="">
+        <div class="menu-title">{{ __('Menu principal') }}</div>
+        <div class="">
+            <div class="list-group list-group-flush menu-list">
 
                 <a class="list-group-item list-group-item-action btn btn-link"
-                   href="{{ (Auth::check() && Auth::user()->is_admin) ? route('bi.menu') : route('home.purchases.index')}}">
+                   href="{{ (Auth::check() && Auth::user()->is_admin) ? route('bi.menu') : route('simple.user.home')}}">
                     <h6><img src="{{asset('images/icons8-home-25.png')}}" alt=""> &nbsp;{{ __('Accueil') }}</h6>
                 </a>
 
@@ -110,12 +97,16 @@
                     </a>
                 @endif
 
-                <a class="list-group-item list-group-item-action btn btn-link"
-                   href="{{route('users.purchases-products.index')}}"
-                   {{--data-bs-toggle="modal" data-bs-target="#system-products-modal"--}} id="lien-pour-produits-enregistres">
-                    <h6><img src="{{asset('images/icons8-product-25.png')}}" alt="">
-                        &nbsp;{{ __('Articles Enregistrés') }}</h6>
-                </a>
+                @if(Auth::check() && Auth::user()->is_admin)
+                    <a class="list-group-item list-group-item-action btn btn-link"
+                       href="{{route('users.purchases-products.index')}}"
+                       {{--data-bs-toggle="modal" data-bs-target="#system-products-modal"--}} id="lien-pour-produits-enregistres">
+                        <h6><img src="{{asset('images/icons8-product-25.png')}}" alt="">
+                            &nbsp;{{ __('Articles Enregistrés') }}</h6>
+                    </a>
+                @endif
+
+
 
                 @if(Auth::check() && Auth::user()->is_admin)
                     <a class="list-group-item list-group-item-action btn btn-link"

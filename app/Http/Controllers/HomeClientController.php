@@ -56,7 +56,7 @@ class HomeClientController extends Controller
         if(Auth::guard('client')->check()){
             return view('home-client');
         }
-        return redirect()->route('authentification.client')->with('message', __("Désolé, vous n'avez pas l'accès"));
+        return redirect()->route('authentification.client');
 
         //return redirect()->withError(__("Désolé, vous n'avez pas l'accès"));
     }
@@ -80,6 +80,12 @@ class HomeClientController extends Controller
 
 
     public function updateClient(Request $request, string $locale, string $clientId){
+
+        /*$telephone0 = $request->input('telephone');
+        $request->merge([
+            'telephone' => "+237".$telephone0,
+        ]);*/
+
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255|min:2',
             'telephone' => 'required|phone',
@@ -223,7 +229,7 @@ class HomeClientController extends Controller
     public function showLoyaltyTransactionsClientSearch(Request $request, string $locale, string $clientId){
         //dd($clientId);
         $loyaltyAccount = Loyaltyaccount::where('holderid', $clientId)->first();
-        $q = $request->get('q');
+        $q = $request->input('q');
         /*$txs = Loyaltytransaction::where('transactiondetail','LIKE','%'.$q.'%')
             ->orWhere('transactiontype','LIKE','%'.strtoupper($q).'%')
             ->orWhere('reference','LIKE','%'.$q.'%')
@@ -269,6 +275,9 @@ class HomeClientController extends Controller
 
         return Pdf::view('reports-templates.vouchers-templates.voucher-download-template', ['voucher' => $voucher, 'client' => $client])
             ->format('a4')
+            ->withBrowsershot(function ($browsershot) {
+                $browsershot->noSandbox();
+            })
             ->save($voucher->serialnumber . '.pdf');
 
         //$config = Config::where('is_applicable', true)->first();

@@ -35,11 +35,12 @@
                                     </span> <br/>
                             @enderror
 
-                            <div class="row mb-3" >
-                                <label for="duration" class="col-md-5 col-form-label text-md-end">{{ 'Duree' }}
-                                    <b class="" style="color: red;">*</b></label>
+                            <div class="field" >
+                                <label for="duration" class="">
+                                    <b><span>{{ 'Duree' }}
+                                            <b class="" style="color: red;">*</b></span></b></label>
 
-                                <div class="col-md-7">
+                                {{--<div class="col-md-7">--}}
                                     <select id="duration"  class="form-control @error('duration') is-invalid @enderror"
                                            name="duration"  required autocomplete="duration" autofocus
                                     >
@@ -54,14 +55,15 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                     @enderror
-                                </div>
+                                {{--</div>--}}
                             </div>
 
-                            <div class="row mb-3" >
-                                <label for="istrial" class="col-md-5 col-form-label text-md-end">{{ 'Essai' }}
-                                    <b class="" style="color: red;">*</b></label>
+                            <div class="field">
+                                <label for="istrial" class="">
+                                    <b><span>{{ 'Essai' }}
+                                            <b class="" style="color: red;">*</b></span></b></label>
 
-                                <div class="col-md-7">
+                                {{--<div class="col-md-7">--}}
                                     <input id="istrial" type="checkbox" class="@error('istrial') is-invalid @enderror" name="istrial" value="off"  autocomplete="isadmin"
                                            style="height: 20px; width: 20px; margin-top: 10px;" onchange="setIsTrial(this, 'is_trial')">
                                     <input name="is_trial" id="is_trial" value="NO" type="hidden">
@@ -70,11 +72,11 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                     @enderror
-                                </div>
+                                {{--</div>--}}
                             </div>
 
-                            <div class="row mb-0">
-                                <div class="col-md-6 offset-md-5">
+                            <div class="field">
+                                <div class="">
                                     <button type="submit" class="btn btn-primary">
                                         {{ 'Enregistrer' }}
                                     </button>

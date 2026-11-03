@@ -446,6 +446,9 @@ class HomeSuperAdminController extends Controller
             ['txs' => $txs, 'from' => $from, 'to' => $to, 'config' => $config, 'purchase_total' => $txs->sum('purchase_amount'),
                 'gift_total' => $txs->sum('gift_amount'), 'birthdate_total'=> $txs->sum('birthdate_amount'), 'total' => $txs->sum('amount'),])
             ->format('a4')
+            ->withBrowsershot(function ($browsershot) {
+                $browsershot->noSandbox();
+            })
             ->save('txs-from-' . $from->format('d-m-Y') . '-to-' . $to->format('d-m-Y') . '.pdf');
         /*if ($request->get('period') == 'ALL'){
             $txs = Loyaltytransaction::where('transactiontype', 'LIKE', '%' . $txType . '%')->orderBy('created_at', 'desc')->get();
@@ -545,6 +548,9 @@ class HomeSuperAdminController extends Controller
             return Pdf::view('reports-templates.clients-templates.clients-template',
                 ['clients' => $clients, 'state' => trim($request->get('etat')), 'config' => $config])
                 ->format('a4')
+                ->withBrowsershot(function ($browsershot) {
+                    $browsershot->noSandbox();
+                })
                 ->save('ALL-STATE-'. 'clients.pdf');
         }else{
             $active = trim($request->get('etat')) === 'ACTIVATED' ? true : false;
@@ -552,6 +558,9 @@ class HomeSuperAdminController extends Controller
             return Pdf::view('reports-templates.clients-templates.clients-template',
                 ['clients' => $clients, 'config' => $config, 'state' => trim($request->get('etat'))])
                 ->format('a4')
+                ->withBrowsershot(function ($browsershot) {
+                    $browsershot->noSandbox();
+                })
                 ->save(trim($request->get('etat')) . '-' . 'clients.pdf');
         }
 
@@ -724,6 +733,9 @@ class HomeSuperAdminController extends Controller
                 return Pdf::view('reports-templates.vouchers-templates.voucher-report-template',
                     ['vouchers' => $vourchers, 'config' => $config, 'state' => $state, 'level' => 'ALL'])
                     ->format('a4')
+                    ->withBrowsershot(function ($browsershot) {
+                        $browsershot->noSandbox();
+                    })
                     ->save('vouchers.pdf');
             }elseif ($state == 'GENERATED') {
                 $vourchers = Voucher::where('active', false)->where('is_used', false)->whereBetween('created_at', [$from, $to])->orderBy('created_at', 'desc')->get();
@@ -731,18 +743,27 @@ class HomeSuperAdminController extends Controller
                 return Pdf::view('reports-templates.vouchers-templates.voucher-report-template',
                     ['vouchers' => $vourchers, 'config' => $config, 'state' => $state, 'level' => $level->name])
                     ->format('a4')
+                    ->withBrowsershot(function ($browsershot) {
+                        $browsershot->noSandbox();
+                    })
                     ->save('vouchers-generated.pdf');
             }elseif ($state == 'ACTIVATED') {
                 $vourchers = Voucher::where('active', true)->where('is_used', false)->whereBetween('created_at', [$from, $to])->orderBy('created_at', 'desc')->get();
                 return Pdf::view('reports-templates.vouchers-templates.voucher-report-template',
                     ['vouchers' => $vourchers, 'config' => $config, 'state' => $state, 'level' => $level->name])
                     ->format('a4')
+                    ->withBrowsershot(function ($browsershot) {
+                        $browsershot->noSandbox();
+                    })
                     ->save('vouchers-activated.pdf');
             }elseif ($state == 'USED') {
                 $vourchers = Voucher::where('active', true)->where('is_used', true)->whereBetween('created_at', [$from, $to])->orderBy('created_at', 'desc')->get();
                 return Pdf::view('reports-templates.vouchers-templates.voucher-report-template',
                     ['vouchers' => $vourchers, 'config' => $config, 'state' => $state, 'level' => $level->name])
                     ->format('a4')
+                    ->withBrowsershot(function ($browsershot) {
+                        $browsershot->noSandbox();
+                    })
                     ->save('vouchers-used.pdf');
             }
 
@@ -756,24 +777,36 @@ class HomeSuperAdminController extends Controller
                     return Pdf::view('reports-templates.vouchers-templates.voucher-report-template',
                         ['vouchers' => $vourchers, 'config' => $config, 'state' => $state, 'level' => $level->name])
                         ->format('a4')
+                        ->withBrowsershot(function ($browsershot) {
+                            $browsershot->noSandbox();
+                        })
                         ->save($level->name . 'vouchers.pdf');
                 }elseif ($state == 'GENERATED') {
                     $vourchers = Voucher::where('level', $level->name)->where('active', false)->where('is_used', false)->whereBetween('created_at', [$from, $to])->orderBy('created_at', 'desc')->get();
                     return Pdf::view('reports-templates.vouchers-templates.voucher-report-template',
                         ['vouchers' => $vourchers, 'config' => $config, 'state' => $state, 'level' => $level->name])
                         ->format('a4')
+                        ->withBrowsershot(function ($browsershot) {
+                            $browsershot->noSandbox();
+                        })
                         ->save($level->name . 'vouchers-generated.pdf');
                 }elseif ($state == 'ACTIVATED') {
                     $vourchers = Voucher::where('level', $level->name)->where('active', true)->where('is_used', false)->whereBetween('created_at', [$from, $to])->orderBy('created_at', 'desc')->get();
                     return Pdf::view('reports-templates.vouchers-templates.voucher-report-template',
                         ['vouchers' => $vourchers, 'config' => $config, 'state' => $state, 'level' => $level->name])
                         ->format('a4')
+                        ->withBrowsershot(function ($browsershot) {
+                            $browsershot->noSandbox();
+                        })
                         ->save($level->name . 'vouchers-activated.pdf');
                 }elseif ($state == 'USED') {
                     $vourchers = Voucher::where('level', $level->name)->where('active', true)->where('is_used', true)->whereBetween('created_at', [$from, $to])->orderBy('created_at', 'desc')->get();
                     return Pdf::view('reports-templates.vouchers-templates.voucher-report-template',
                         ['vouchers' => $vourchers, 'config' => $config, 'state' => $state, 'level' => $level->name])
                         ->format('a4')
+                        ->withBrowsershot(function ($browsershot) {
+                            $browsershot->noSandbox();
+                        })
                         ->save($level->name . 'vouchers-used.pdf');
                 }
             }

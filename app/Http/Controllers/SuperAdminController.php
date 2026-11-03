@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Http\Request;
 use Nanorocks\LicenseManager\Models\License;
 use Nanorocks\LicenseManager\Services\LicenseService;
 

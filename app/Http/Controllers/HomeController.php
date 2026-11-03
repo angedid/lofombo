@@ -72,7 +72,7 @@ class HomeController extends Controller
             return back()->withErrors(['error' => $validator->errors()->first()]);
         }
 
-        if ($request->get('emailchanel') == 'on') {
+        if ($request->input('emailchanel') == 'on') {
             $normalClients = Client::where('active', true)->whereNotNull('email')->orderBy('created_at', 'desc')->get();
             $emails = [];
             foreach ($normalClients as $client) {
@@ -82,8 +82,8 @@ class HomeController extends Controller
             $config = Config::where('is_applicable', true)->first();
             ProcessSendEMailCampaignJob::dispatch(
                 [
-                    'subject' => $request->get('subject'),
-                    'message' => $request->get('message'),
+                    'subject' => $request->input('subject'),
+                    'message' => $request->input('message'),
                     'recipients' => $emails,
                     'sender' => Auth::user()->id,
                     'enterprise_name' => $config->enterprise_name,
@@ -137,7 +137,8 @@ class HomeController extends Controller
 
     public function showClients()
     {
-        $clients = Client::all();
+        $clients = Client::orderByDesc('created_at')->get();
+        //dd($clients);
         return view('client.list', ['clients' => $clients]);
     }
 
@@ -193,7 +194,7 @@ class HomeController extends Controller
 
 
     public function showLoyaltyTransactionsSearch(Request $request){
-        $q = $request->get('q');
+        $q = $request->input('q');
         /*$txs = Loyaltytransaction::where('transactiondetail','LIKE','%'.$q.'%')
             ->orWhere('transactiontype','LIKE','%'.strtoupper($q).'%')
             ->orWhere('reference','LIKE','%'.$q.'%')
@@ -205,13 +206,15 @@ class HomeController extends Controller
         $txs = [];
         foreach ($all as $tx) {
             $date = Carbon::parse($tx->date)->format('d-m-Y H:i:s');
+            $client = Client::where('id', $tx->clientid)->first();
 
             if (str_contains(strtolower($tx->transactiondetail), strtolower($q))
             || str_contains(strtolower($tx->transactiontype), strtolower($q))
             || str_contains(strtolower($tx->reference), strtolower($q))
             || str_contains(strtolower($date), strtolower($q))
             || str_contains(strtolower(sprintf('%lf', $tx->amount)), strtolower($q))
-            || str_contains(strtolower(sprintf('%lf', $tx->point)), strtolower($q))){
+            || str_contains(strtolower(sprintf('%lf', $tx->point)), strtolower($q))
+            || ($client != null && str_contains(strtolower($client->name), strtolower($q)))){
                 array_push($txs, $tx);
             }
         }
@@ -286,6 +289,8 @@ class HomeController extends Controller
         return view('reports-menu', ['config' => $config]);
     }
 
+
+
     public function reports()
     {
         //$txs = Loyaltytransaction::all();
@@ -315,7 +320,7 @@ class HomeController extends Controller
             return back()->withErrors(['error' => $exception->getMessage()]);
         }
         try {
-            $to = Carbon::parse($request->get('to'));
+            $to = Carbon::parse($request->input('to'));
         }catch (InvalidFormatException $exception){
             session()->flash('error', $exception->getMessage());
             return back()->withErrors(['error' => $exception->getMessage()]);
@@ -330,13 +335,13 @@ class HomeController extends Controller
         $config = Config::where('is_applicable', true)->first();
 
         $txType = '';// $request->get('tx')=='ALL'?'':'PURCHASE_REGISTRATION';
-        if (trim($request->get('tx')) == 'ALL') {
+        if (trim($request->input('tx')) == 'ALL') {
             $txType = '';
-        }elseif (trim($request->get('tx')) == 'PURCHASE_REGISTRATION') {
+        }elseif (trim($request->input('tx')) == 'PURCHASE_REGISTRATION') {
             $txType = 'ENREGISTREMENT ACHAT';
-        }elseif (trim($request->get('tx')) == 'VOUCHER_GENERATION') {
+        }elseif (trim($request->input('tx')) == 'VOUCHER_GENERATION') {
             $txType = 'GENERATION DE BON';
-        }elseif (trim($request->get('tx')) == 'ACCOUNT_INITIALIZATION') {
+        }elseif (trim($request->input('tx')) == 'ACCOUNT_INITIALIZATION') {
             $txType = 'INITIALISATION COMPTE CLIENT';
         }
 
@@ -346,6 +351,9 @@ class HomeController extends Controller
             ['txs' => $txs, 'from' => $from, 'to' => $to, 'config' => $config, 'purchase_total' => $txs->sum('purchase_amount'),
                 'gift_total' => $txs->sum('gift_amount'), 'birthdate_total'=> $txs->sum('birthdate_amount'), 'total' => $txs->sum('amount'),])
             ->format('a4')
+            ->withBrowsershot(function ($browsershot) {
+                $browsershot->noSandbox();
+            })
             ->save('txs-from-' . $from->format('d-m-Y') . '-to-' . $to->format('d-m-Y') . '.pdf');
         /*if ($request->get('period') == 'ALL'){
             $txs = Loyaltytransaction::where('transactiontype', 'LIKE', '%' . $txType . '%')->orderBy('created_at', 'desc')->get();
@@ -445,6 +453,9 @@ class HomeController extends Controller
             return Pdf::view('reports-templates.clients-templates.clients-template',
                 ['clients' => $clients, 'state' => trim($request->get('etat')), 'config' => $config])
                 ->format('a4')
+                ->withBrowsershot(function ($browsershot) {
+                    $browsershot->noSandbox();
+                })
                 ->save('ALL-STATE-'. 'clients.pdf');
         }else{
             $active = trim($request->get('etat')) === 'ACTIVATED' ? true : false;
@@ -452,6 +463,9 @@ class HomeController extends Controller
             return Pdf::view('reports-templates.clients-templates.clients-template',
                 ['clients' => $clients, 'config' => $config, 'state' => trim($request->get('etat'))])
                 ->format('a4')
+                ->withBrowsershot(function ($browsershot) {
+                    $browsershot->noSandbox();
+                })
                 ->save(trim($request->get('etat')) . '-' . 'clients.pdf');
         }
 
@@ -588,7 +602,7 @@ class HomeController extends Controller
         }
 
         try {
-            $from = Carbon::parse($request->get('from'));
+            $from = Carbon::parse($request->input('from'));
         }catch (InvalidFormatException $exception){
             session()->flash('error', $exception->getMessage());
             return back()->withErrors(['error' => $exception->getMessage()]);
@@ -609,21 +623,27 @@ class HomeController extends Controller
         $state = 'ALL';
         /*if (trim($request->get('state')) == 'ALL') {
             $state = 'ALL';
-        }else*/if (trim($request->get('state')) == 'GENERATED') {
+        }else*/if (trim($request->input('state')) == 'GENERATED') {
             $state = 'GENERATED';
-        }elseif (trim($request->get('state')) == 'ACTIVATED') {
+        }elseif (trim($request->input('state')) == 'ACTIVATED') {
             $state = 'ACTIVATED';
-        }elseif (trim($request->get('state')) == 'USED') {
+        }elseif (trim($request->input('state')) == 'USED') {
             $state = 'USED';
         }
 
+        //dd($from, $to, $state);
 
-        if (trim($request->get('level')) == 'ALL') {
+        if (trim($request->input('level')) == 'ALL') {
             if($state == 'ALL'){
+                //$allvouchers = Voucher::orderBy('created_at', 'desc')->get();
                 $vourchers = Voucher::whereBetween('created_at', [$from, $to])->orderBy('created_at', 'desc')->get();
+                //dd($allvouchers);
                 return Pdf::view('reports-templates.vouchers-templates.voucher-report-template',
                     ['vouchers' => $vourchers, 'config' => $config, 'state' => $state, 'level' => 'ALL'])
                     ->format('a4')
+                    ->withBrowsershot(function ($browsershot) {
+                        $browsershot->noSandbox();
+                    })
                     ->save('vouchers.pdf');
             }elseif ($state == 'GENERATED') {
                 $vourchers = Voucher::where('active', false)->where('is_used', false)->whereBetween('created_at', [$from, $to])->orderBy('created_at', 'desc')->get();
@@ -631,18 +651,27 @@ class HomeController extends Controller
                 return Pdf::view('reports-templates.vouchers-templates.voucher-report-template',
                     ['vouchers' => $vourchers, 'config' => $config, 'state' => $state, 'level' => $level->name])
                     ->format('a4')
+                    ->withBrowsershot(function ($browsershot) {
+                        $browsershot->noSandbox();
+                    })
                     ->save('vouchers-generated.pdf');
             }elseif ($state == 'ACTIVATED') {
                 $vourchers = Voucher::where('active', true)->where('is_used', false)->whereBetween('created_at', [$from, $to])->orderBy('created_at', 'desc')->get();
                 return Pdf::view('reports-templates.vouchers-templates.voucher-report-template',
                     ['vouchers' => $vourchers, 'config' => $config, 'state' => $state, 'level' => $level->name])
                     ->format('a4')
+                    ->withBrowsershot(function ($browsershot) {
+                        $browsershot->noSandbox();
+                    })
                     ->save('vouchers-activated.pdf');
             }elseif ($state == 'USED') {
                 $vourchers = Voucher::where('active', true)->where('is_used', true)->whereBetween('created_at', [$from, $to])->orderBy('created_at', 'desc')->get();
                 return Pdf::view('reports-templates.vouchers-templates.voucher-report-template',
                     ['vouchers' => $vourchers, 'config' => $config, 'state' => $state, 'level' => $level->name])
                     ->format('a4')
+                    ->withBrowsershot(function ($browsershot) {
+                        $browsershot->noSandbox();
+                    })
                     ->save('vouchers-used.pdf');
             }
 
@@ -650,30 +679,42 @@ class HomeController extends Controller
         foreach ($levels as $level) {
 
             //else{
-            if(trim($request->get('level')) == $level->id){
+            if(trim($request->input('level')) == $level->id){
                 if($state == 'ALL'){
                     $vourchers = Voucher::where('level', $level->name)->whereBetween('created_at', [$from, $to])->orderBy('created_at', 'desc')->get();
                     return Pdf::view('reports-templates.vouchers-templates.voucher-report-template',
                         ['vouchers' => $vourchers, 'config' => $config, 'state' => $state, 'level' => $level->name])
                         ->format('a4')
+                        ->withBrowsershot(function ($browsershot) {
+                            $browsershot->noSandbox();
+                        })
                         ->save($level->name . 'vouchers.pdf');
                 }elseif ($state == 'GENERATED') {
                     $vourchers = Voucher::where('level', $level->name)->where('active', false)->where('is_used', false)->whereBetween('created_at', [$from, $to])->orderBy('created_at', 'desc')->get();
                     return Pdf::view('reports-templates.vouchers-templates.voucher-report-template',
                         ['vouchers' => $vourchers, 'config' => $config, 'state' => $state, 'level' => $level->name])
                         ->format('a4')
+                        ->withBrowsershot(function ($browsershot) {
+                            $browsershot->noSandbox();
+                        })
                         ->save($level->name . 'vouchers-generated.pdf');
                 }elseif ($state == 'ACTIVATED') {
                     $vourchers = Voucher::where('level', $level->name)->where('active', true)->where('is_used', false)->whereBetween('created_at', [$from, $to])->orderBy('created_at', 'desc')->get();
                     return Pdf::view('reports-templates.vouchers-templates.voucher-report-template',
                         ['vouchers' => $vourchers, 'config' => $config, 'state' => $state, 'level' => $level->name])
                         ->format('a4')
+                        ->withBrowsershot(function ($browsershot) {
+                            $browsershot->noSandbox();
+                        })
                         ->save($level->name . 'vouchers-activated.pdf');
                 }elseif ($state == 'USED') {
                     $vourchers = Voucher::where('level', $level->name)->where('active', true)->where('is_used', true)->whereBetween('created_at', [$from, $to])->orderBy('created_at', 'desc')->get();
                     return Pdf::view('reports-templates.vouchers-templates.voucher-report-template',
                         ['vouchers' => $vourchers, 'config' => $config, 'state' => $state, 'level' => $level->name])
                         ->format('a4')
+                        ->withBrowsershot(function ($browsershot) {
+                            $browsershot->noSandbox();
+                        })
                         ->save($level->name . 'vouchers-used.pdf');
                 }
             }
@@ -1197,6 +1238,12 @@ class HomeController extends Controller
         $msg = __("Produit modifié avec succès");
         session()->flash('status', $msg);
         return back()->with('status', $msg);
+    }
+
+
+    public function simpleUserHome()
+    {
+        return view('simple-user-home');
     }
 
 

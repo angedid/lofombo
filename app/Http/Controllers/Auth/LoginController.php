@@ -61,6 +61,11 @@ class LoginController extends Controller
      */
     public function index(): View
     {
+        //session()->remove('error');
+        //session()->remove('status');
+        if(session('error') == 'Vous n\'etes pas autorise!'){
+           session()->forget('error');
+        }
         return view('auth.login');
     }
 
@@ -93,14 +98,13 @@ class LoginController extends Controller
         if (!$user->active) {
             session()->flash('error', __('Désolé, vous n\'avez pas l\'accès'));
             return back()->withErrors([
-                'error' => __('Désolé, vous n\'avez pas l\'accès'),
+                //'error' => __('Désolé, vous n\'avez pas l\'accès'),
             ]);
         }
 
         $credentials = $request->only('username', 'password');
 
         if (Auth::attempt($credentials)) {
-
             if (!$userFirstTimeConnection->has_been_connected){
                 //Session::flush();
                 Auth::logout();
@@ -118,7 +122,7 @@ class LoginController extends Controller
                 return redirect()->route('bi.menu')->withSuccess('status', __('Connexion réussie !'));
             }else{
                 session()->flash('status', __('Connexion réussie !'));
-                return redirect()->route('home.purchases.index')->withSuccess('status', __('Connexion réussie !'));
+                return redirect()->route('simple.user.home')->withSuccess('status', __('Connexion réussie !'));
             }
         }
 
@@ -188,5 +192,7 @@ class LoginController extends Controller
         ]);
         //return redirect('/login')->with('message', 'Votre mot de passe a ete modifie avec succes!');
     }
+
+
 
 }

@@ -8,8 +8,8 @@
     <div class="container">
         <div class="row justify-content-center">
             @include('layouts.menu')
-            <div class="col-md-8">
-                <div class="card">
+            <div class="col-md-9">
+                <div class="card" style="padding-left: 30px; padding-right: 30px;">
                     <div class="card-header"><h5>{{ __('Configuration Système')}}</h5></div>
 
                     <div class="card-body">
@@ -85,10 +85,11 @@
                                 //dd($password_recovery_request_duration);
                             @endphp
 
-                            <div class="row mb-3">
-                                <label for="initial_loyalty_points" class="col-md-5 col-form-label text-md-end">
-                                    {{ __('Points initiaux pour les clients')}}</label>
-                                <div class="col-md-7">
+                            <div class="field">
+                                <label for="initial_loyalty_points"
+                                       class="">
+                                    <b><span>{{ __('Points initiaux pour les clients')}}</span></b></label>
+                                {{--<div class="col-md-7">--}}
                                     <input id="initial_loyalty_points" type="number"
                                            class="form-control @error('initial_loyalty_points') is-invalid @enderror"
                                            name="initial_loyalty_points"
@@ -101,14 +102,15 @@
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
-                                </div>
+                                {{--</div>--}}
                             </div>
 
-                            <div class="row mb-3">
-                                <label for="amount_per_point" class="col-md-5 col-form-label text-md-end">
-                                    {{ __("Conversion Montant pour 1 Point de Fidélité") }}
+                            <div class="field">
+                                <label for="amount_per_point" class="">
+                                    <b><span>{{ __("Conversion Montant pour 1 Point de Fidélité") }}
+                                        </span></b>
                                 </label>
-                                <div class="col-md-7">
+                                {{--<div class="col-md-7">--}}
                                     <input id="amount_per_point" type="number"
                                            class="form-control @error('amount_per_point') is-invalid @enderror"
                                            name="amount_per_point"
@@ -121,14 +123,14 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                     @enderror
-                                </div>
+                                {{--</div>--}}
                             </div>
 
-                            <div class="row mb-3">
-                                <label for="currency_name" class="col-md-5 col-form-label text-md-end">
-                                    {{ __("Monnaie") }}
+                            <div class="field">
+                                <label for="currency_name" class="">
+                                    <b><span>{{ __("Monnaie") }}</span></b>
                                 </label>
-                                <div class="col-md-7">
+                                {{--<div class="col-md-7">--}}
                                     <input id="currency_name" type="text"
                                            class="form-control @error('currency_name') is-invalid @enderror"
                                            name="currency_name"
@@ -141,14 +143,14 @@
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
-                                </div>
+                                {{--</div>--}}
                             </div>
 
-                            <div class="row mb-3">
-                                <label for="birthdate_bonus_rate" class="col-md-5 col-form-label text-md-end">
-                                    {{ __("Coefficient pour anniversaire") }}
+                            <div class="field">
+                                <label for="birthdate_bonus_rate" class="">
+                                    <b><span>{{ __("Coefficient pour anniversaire") }}</span></b>
                                 </label>
-                                <div class="col-md-7">
+                                {{--<div class="col-md-7">--}}
                                     <input id="birthdate_bonus_rate" type="number" step="0.01"
                                            class="form-control @error('birthdate_bonus_rate') is-invalid @enderror"
                                            name="birthdate_bonus_rate"
@@ -161,21 +163,16 @@
                                                             <strong>{{ $message }}</strong>
                                                         </span>
                                     @enderror
-                                </div>
+                                {{--</div>--}}
                             </div>
 
 
-                            <div class="row mb-3">
-                                <label for="levels" class="col-md-5 col-form-label text-md-end">
-                                    {{ __("Type de Bons de Fidélité") }}
-                                    <br>
-                                    <a href="#" onclick="addLevelFilds();"
-                                       style="text-decoration: none; font-size: x-large; color: green;"
-                                       id="add_level_field">
-                                        <strong><span class="glyphicon glyphicon-plus">+</span></strong>
-                                    </a>
+                            <div class="field">
+                                <label for="levels" class="">
+                                    <b><span>{{ __("Type de Bons de Fidélité") }}
+                                    </span></b>
                                 </label>
-                                <div class="col-md-7" id="levels">
+                                <div class="" id="levels">
                                     @foreach($levels as $level)
                                         <div class="row" id="{{$index}}">
                                             <div class="col-md-6">
@@ -195,7 +192,7 @@
                                                 @enderror
                                             </div>
 
-                                            <div class="col-md-4">
+                                            <div class="col-md-5">
                                                 <label for="level_point{{$index}}">{{__("Point")}}</label>
 
                                                 <input id="level_point{{$index}}" type="number"
@@ -211,7 +208,7 @@
                                                     </span>
                                                 @enderror
                                             </div>
-                                            <div class="col-md-2">
+                                            <div class="col-md-1">
                                                 <div class="col-md-2"><br>
                                                     <button class="btn btn-link" type="button" name="{{$index}}"
                                                             onclick="removeLevelLine(this.name);"
@@ -224,11 +221,14 @@
                                         </div>
                                         @php $index = $index + 1; @endphp
                                     @endforeach
-
                                     <span style="display: none;" id="nom_label">{{__("Nom")}}</span>
                                     <span style="display: none;" id="point_label">{{__("Point")}}</span>
-
                                 </div>
+                                <a href="#" onclick="addLevelFilds();"
+                                   style="text-decoration: none; font-size: large; color: green;"
+                                   id="add_level_field">
+                                    <strong><span class="glyphicon glyphicon-plus">+</span></strong>
+                                </a>
                                 <input type="hidden" value="{{$index}}" id="index" name="index">
 
 
@@ -394,10 +394,10 @@
                                 </div>
                             </div>--}}
 
-                            <div class="row mb-3">
-                                <label for="voucher_duration_in_month" class="col-md-5 col-form-label text-md-end">
-                                    {{ __("Durée d'un bon (Nombre de mois)") }}</label>
-                                <div class="col-md-7">
+                            <div class="field">
+                                <label for="voucher_duration_in_month" class="">
+                                    <b><span>{{ __("Durée d'un bon (Nombre de mois)") }}</span></b></label>
+                                {{--<div class="col-md-7">--}}
                                     <input id="voucher_duration_in_month" type="number"
                                            class="form-control @error('voucher_duration_in_month') is-invalid @enderror"
                                            name="voucher_duration_in_month"
@@ -410,13 +410,14 @@
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
-                                </div>
+                                {{--</div>--}}
                             </div>
 
-                            <div class="row mb-3">
-                                <label for="trusted_email" class="col-md-5 col-form-label text-md-end">
-                                    {{ __("Email de confiance (pour code d'utilisation de bon)") }}</label>
-                                <div class="col-md-7">
+                            <div class="field">
+                                <label for="trusted_email" class="">
+                                    <b><span>{{ __("Email de confiance (pour code d'utilisation de bon)") }}</span></b>
+                                </label>
+                                {{--<div class="col-md-7">--}}
                                     <input id="trusted_email" type="email"
                                            class="form-control @error('trusted_email') is-invalid @enderror"
                                            name="trusted_email"
@@ -428,15 +429,16 @@
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
-                                </div>
+                                {{--</div>--}}
                             </div>
 
 
-                            <div class="row mb-3">
+                            <div class="field">
                                 <label for="password_recovery_request_duration"
-                                       class="col-md-5 col-form-label text-md-end">
-                                    {{ __("Durée de la demande de changement du mot de passe par le Client (Nombre d'heures)")  }}</label>
-                                <div class="col-md-7">
+                                       class="">
+                                    <b><span>{{ __("Durée de la demande de changement du mot de passe par le Client (Nombre d'heures)")  }}
+                                        </span></b></label>
+                                {{--<div class="col-md-7">--}}
                                     <input id="password_recovery_request_duration" type="number"
                                            class="form-control @error('password_recovery_request_duration') is-invalid @enderror"
                                            name="password_recovery_request_duration"
@@ -449,13 +451,13 @@
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
-                                </div>
+                                {{--</div>--}}
                             </div>
 
-                            <div class="row mb-3">
-                                <label for="enterprise_name" class="col-md-5 col-form-label text-md-end">
-                                    {{ __("Nom Raison Sociale / Entreprise") }}</label>
-                                <div class="col-md-7">
+                            <div class="field">
+                                <label for="enterprise_name" class="">
+                                    <b><span>{{ __("Nom Raison Sociale / Entreprise") }}</span></b></label>
+                                {{--<div class="col-md-7">--}}
                                     <input id="enterprise_name" type="text"
                                            class="form-control @error('enterprise_name') is-invalid @enderror"
                                            name="enterprise_name"
@@ -468,13 +470,14 @@
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
-                                </div>
+                                {{--</div>--}}
                             </div>
 
-                            <div class="row mb-3">
-                                <label for="enterprise_email" class="col-md-5 col-form-label text-md-end">
-                                    {{ __("Email Raison Sociale / Entreprise") }}</label>
-                                <div class="col-md-7">
+                            <div class="field">
+                                <label for="enterprise_email" class="">
+                                    <b><span>{{ __("Email Raison Sociale / Entreprise") }}</span></b>
+                                </label>
+                                {{--<div class="col-md-7">--}}
                                     <input id="enterprise_email" type="email"
                                            class="form-control @error('enterprise_email') is-invalid @enderror"
                                            name="enterprise_email"
@@ -487,13 +490,13 @@
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
-                                </div>
+                                {{--</div>--}}
                             </div>
 
-                            <div class="row mb-3">
-                                <label for="enterprise_phone" class="col-md-5 col-form-label text-md-end">
-                                    {{ __("Numéro Tel Raison Sociale / Entreprise") }}</label>
-                                <div class="col-md-7">
+                            <div class="field">
+                                <label for="enterprise_phone" class="">
+                                    <b><span>{{ __("Numéro Tel Raison Sociale / Entreprise") }}</span></b></label>
+                                {{--<div class="col-md-7">--}}
                                     <input id="enterprise_phone" type="tel"
                                            class="form-control @error('enterprise_phone') is-invalid @enderror"
                                            name="enterprise_phone"
@@ -506,13 +509,14 @@
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
-                                </div>
+                                {{--</div>--}}
                             </div>
 
-                            <div class="row mb-3">
-                                <label for="enterprise_website" class="col-md-5 col-form-label text-md-end">
-                                    {{ __("Site web Raison Sociale / Entreprise")}}</label>
-                                <div class="col-md-7">
+                            <div class="field">
+                                <label for="enterprise_website" class="">
+                                    <b><span>{{ __("Site web Raison Sociale / Entreprise")}}</span></b>
+                                </label>
+                                {{--<div class="col-md-7">--}}
                                     <input id="enterprise_website" type="url"
                                            class="form-control @error('enterprise_website') is-invalid @enderror"
                                            name="enterprise_website"
@@ -525,13 +529,14 @@
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
-                                </div>
+                                {{--</div>--}}
                             </div>
 
-                            <div class="row mb-3">
-                                <label for="enterprise_address" class="col-md-5 col-form-label text-md-end">
-                                    {{ __("Adresse Raison Sociale / Entreprise") }}</label>
-                                <div class="col-md-7">
+                            <div class="field">
+                                <label for="enterprise_address" class="">
+                                    <b><span>{{ __("Adresse Raison Sociale / Entreprise") }}</span></b>
+                                </label>
+                                {{--<div class="col-md-7">--}}
                                     <input id="enterprise_address" type="text"
                                            class="form-control @error('enterprise_address') is-invalid @enderror"
                                            name="enterprise_address"
@@ -544,12 +549,12 @@
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
-                                </div>
+                                {{--</div>--}}
                             </div>
 
-                            <div class="row mb-3">
-                                <label for="enterprise_logo" class="col-md-5 col-form-label text-md-end">
-                                    {{ __('Logo Raison Sociale / Entreprise')}}
+                            {{--<div class="field">
+                                <label for="enterprise_logo" class="">
+                                    <b><span>{{ __('Logo Raison Sociale / Entreprise')}}</span></b>
                                     @if(count(Config::where('is_applicable', true)->get()) === 1)
                                         @php $config0 = Config::where('is_applicable', true)->get()[0]; @endphp
                                         @if(strlen($config0->enterprise_logo) > 0)
@@ -560,7 +565,6 @@
                                     @endif
 
                                 </label>
-                                <div class="col-md-7">
                                     <input id="enterprise_logo" type="file"
                                            class="form-control @error('enterprise_logo') is-invalid @enderror"
                                            name="enterprise_logo" onchange="toggleLogoSizeIndicator();">
@@ -590,10 +594,10 @@
                                     <span style="display: none;" id="alert_logo_size">
                                         {{ __("Le volume du fichier a dépassé la limite requise (10MB).") }}
                                     </span>
-                                </div>
-                            </div>
-                            <div class="row mb-0">
-                                <div class="col-md-6 offset-md-4">
+
+                            </div>--}}
+                            <div class="field">
+                                <div class="">
                                     <button type="submit" class="btn btn-primary">
                                         <strong>{{ __('Enregistrer') }}</strong>
                                     </button>

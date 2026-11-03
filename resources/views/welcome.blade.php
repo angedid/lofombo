@@ -1,16 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-12">
-                <div class="card" style="border: 0 red solid; padding: 0;">
+    <div class="">
+        <div class="">
+            <div class="">
+                <div class="" style="border: 0 red solid; padding: 0;">
 
-                    <div class="card-body" style="border: 0 red solid; margin: 0; padding: 0;">
+                    <div class="" style="border: 0 red solid; margin: 0; padding: 0;">
                         <div style="
                                     border: 0 red solid;
                                     padding: 10px;
-                                    background-image: url('{{asset('images/bg.png')}}');
+                                    {{--background-image: url('{{asset('images/bg.png')}}');--}}
                                     background-repeat: no-repeat;
                                     background-size: cover;
                                     ">
@@ -42,25 +42,53 @@
                                     <h4>{{ session('error') }}</h4>
                                 </div>
                             @endif--}}
-                            @if(count(\App\Models\Client::all()))
+                            {{--@if(count(\App\Models\Client::all()))
                                 <a href="{{ route('authentification.client') }}" class="btn btn-primary btn-lg" style="background: #164fa9; border: 1px #164fa9 solid; font-weight: bold;">
                                     <strong style="font-size: xx-large; font-weight: bold;">Etes-vous client? Cliquez ici</strong>
                                 </a>
-                            @endif
+                            @endif--}}
 
                             @if(\Illuminate\Support\Facades\Auth::check())
                                 @if(\Illuminate\Support\Facades\Auth::user()->is_admin)
-                                    <a href="{{ route('bi.menu') }}" class="btn btn-primary btn-sm" style="background: #164fa9; border: 1px #164fa9 solid; font-weight: bold; float: right">
+                                    <a href="{{ route('bi.menu') }}"
+                                       class="btn btn-sm btn-link"
+                                       style="
+                                       /*background: #164fa9;
+                                       border: 1px #164fa9 solid;*/
+                                       color: #FFFFFF;
+                                       font-weight: bold;
+                                       float: right;
+                                       width: fit-content;
+
+                                       ">
                                         <strong style="font-size: inherit; font-weight: bold;">{{__("Accueil")}}</strong>
                                     </a>
                                 @else
-                                    <a href="{{ route('home.purchases.index') }}" class="btn btn-primary btn-sm" style="background: #164fa9; border: 1px #164fa9 solid; font-weight: bold; float: right">
+                                    <a href="{{ route('home.purchases.index') }}" class="btn btn-sm btn-link"
+                                       style="
+                                       /*background: #164fa9;
+                                       border: 1px #164fa9 solid;*/
+                                       color: #FFFFFF;
+                                       font-weight: bold;
+                                       float: right;
+                                       width: fit-content;
+
+                                       ">
                                         <strong style="font-size: inherit; font-weight: bold;">{{__("Accueil")}}</strong>
                                     </a>
                                 @endif
                             @endif
                             @if(\Illuminate\Support\Facades\Auth::guard('client')->check())
-                                <a href="{{ route('home.client') }}" class="btn btn-primary btn-sm" style="background: #164fa9; border: 1px #164fa9 solid; font-weight: bold; float: right">
+                                <a href="{{ route('home.client') }}" class="btn btn-sm"
+                                   style="
+                                   /*background: #164fa9;
+                                       border: 1px #164fa9 solid;*/
+                                       color: #FFFFFF;
+                                       font-weight: bold;
+                                       float: right;
+                                       width: fit-content;
+                                       "
+                                       >
                                     <strong style="font-size: inherit; font-weight: bold;">{{__("Accueil")}}</strong>
                                 </a>
                             @endif
@@ -68,9 +96,6 @@
                             <br><br><br>
                         </div>
                         @include('reward.list-card')
-
-                        <br><br><br><br><br><br><br><br><br><br><br>
-                        <br><br><br><br><br><br><br><br><br><br><br>
                 </div>
             </div>
         </div>

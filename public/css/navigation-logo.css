@@ -1,0 +1,12 @@
+/* Keep logos proportional and reserve room for the mobile navigation toggle. */
+.application-brand {
+    max-width: calc(100% - 72px);
+}
+
+.application-logo {
+    width: auto;
+    height: 70px;
+    max-width: min(300px, 100%);
+    object-fit: contain;
+    object-position: left center;
+}

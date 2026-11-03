@@ -50,9 +50,9 @@ class NotificationController extends Controller
         }
 
         $read = false;
-        if ($request->get('action') == 'read') {
+        if ($request->input('action') == 'read') {
             $read = true;
-        }else if ($request->get('action') == 'unread') {
+        }else if ($request->input('action') == 'unread') {
             $read = false;
         }else{
             session()->flash('error', 'Action not allowed');

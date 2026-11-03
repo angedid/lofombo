@@ -9,7 +9,7 @@
     box-sizing: border-box;
 }
 
-body {
+/*body {
     --color: rgba(30, 30, 30);
     --bgColor: rgba(245, 245, 245);
     min-height: 100vh;
@@ -23,14 +23,14 @@ body {
     color: var(--color);
     background: var(--bgColor);
     position: relative;
-}
+}*/
 
 h1 {
     text-align: center;
 }
 
 ul.product-plans {
-    width: min(60rem, 90%);
+    /*width: min(60rem, 90%);*/
     margin-inline: auto;
     display: flex;
     row-gap: 2rem;
@@ -47,7 +47,7 @@ ul.product-plans li.product-plan:nth-child(3) { --accent-color: #164fa9
 ul.product-plans li.product-plan {
     --overlap-size: 1.5rem;
     --border-radius: 5rem;
-    width: min(15rem, 100%);
+    /*width: min(15rem, 100%);*/
     margin-inline: var(--overlap-size);
     padding-block: 2rem;
     display: grid;
@@ -55,6 +55,7 @@ ul.product-plans li.product-plan {
     gap: 0.5rem;
     border-radius: var(--border-radius) 0 var(--border-radius) 0;
     box-shadow: 0.25rem 0.25rem 0.5rem rgba(0, 0, 0, 0.5);
+    background-color: white;
 }
 
 ul.product-plans li.product-plan .title {

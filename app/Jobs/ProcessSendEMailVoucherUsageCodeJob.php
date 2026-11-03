@@ -2,7 +2,7 @@
 
 namespace App\Jobs;
 
-use App\Mail\MailForVoucherGenerated;
+
 use App\Mail\MailForVoucherSendUsageCode;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;

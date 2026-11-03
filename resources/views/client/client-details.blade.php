@@ -36,9 +36,6 @@
                                     {{__("Nom")}}: &nbsp; &nbsp; {{$client->name}}
                                     <strong style="display: inline; position: relative; float:right; color: darkred;">
                                         {{ __('Solde Fidélité').': ' }} {{intval(strval(decrypt($loyaltyAccount->point_balance)))}}
-                                        @if(\Illuminate\Support\Facades\Auth::user()->is_admin)
-                                            {{'Points  (' . $loyaltyAccount->amount_balance . ' ' . $configuration->currency_name . ')'}}
-                                        @endif
                                     </strong>
                                 </h5>
                             </a>
@@ -138,6 +135,11 @@
                                 </a>
                             @endif
                         </div>
+
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#confirm-update-client-modal">
+                                {{ __("Modifier") }}
+                            </button>
 
                         <div class="alert alert-{{($client->active)?'success':'danger'}}"
                              style="padding-left: 10px; padding-right: 10px;">
@@ -266,11 +268,13 @@
                                                             @csrf
 
                                                             @if(count($possibleLevels) >= 1)
-                                                                <div class="row mb-3">
+                                                                <div class="field">
                                                                     {{--<input type="hidden" name="transactiontypeid"
                                                                            value="{{$transactiontype->id}}">--}}
-                                                                    <label for="level" class="col-md-4 col-form-label text-md-end">{{ __("Type de Bon") }}</label>
-                                                                    <div class="col-md-6">
+                                                                    <label for="level" class="">
+                                                                        <b><span>{{ __("Type de Bon") }}</span></b>
+                                                                    </label>
+                                                                    {{--<div class="col-md-6">--}}
                                                                         <select id="level"
                                                                                 class="form-control form-select form-select-lg @error('level') is-invalid @enderror"
                                                                                 name="level" >
@@ -284,7 +288,7 @@
                                                                              <strong>{{ $message }}</strong>
                                                                          </span>
                                                                         @enderror
-                                                                    </div>
+                                                                    {{--</div>--}}
 
                                                                     <input type="hidden" name="clientid" id="clientid"
                                                                            value="{{$client->id}}">
@@ -350,6 +354,7 @@
 
                                 @endif
 
+
                                 @if(\Illuminate\Support\Facades\Auth::user()->is_admin)
                                     <button type="button" class="btn btn-danger" data-bs-toggle="modal"
                                             data-bs-target="#confirm-deactivate-client-modal">
@@ -403,19 +408,16 @@
                                 @endif
 
 
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                        data-bs-target="#confirm-update-client-modal">
-                                    {{ __("Modifier Client") }}
-                                </button>
+
 
                                 <div class="modal fade modal-lg" id="confirm-update-client-modal" data-bs-backdrop="static"
                                      data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
-                                     aria-hidden="true">
+                                     aria-hidden="true" >
                                     <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h1 class="modal-title fs-5" id="staticBackdropLabel">
-                                                    {{__("Confirmez l'activation du client")}}
+                                                    {{__("Modification des informations du client ")}}
                                                     <strong
                                                         style="color: darkred;">{{$client->name}}</strong></h1>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
@@ -436,13 +438,14 @@
                                                     <input type="hidden" name="clientid" value="{{$client->id}}">
 
 
-                                                    <div class="row mb-3">
+                                                    <div class="field">
                                                         <label for="name"
-                                                               class="col-md-4 col-form-label text-md-end">{{ __('Nom') }}
-                                                            <b class="" style="color: red;">*</b>
+                                                               class="">
+                                                            <b><span>{{ __('Nom') }}
+                                                                    <b class="" style="color: red;">*</b></span></b>
                                                         </label>
 
-                                                        <div class="col-md-6">
+                                                        {{--<div class="col-md-6">--}}
                                                             <input id="name" type="text"
                                                                    class="form-control @error('name') is-invalid @enderror"
                                                                    name="name" value="{{ $client->name }}" required
@@ -453,17 +456,18 @@
                                                                         <strong>{{ $message }}</strong>
                                                                     </span>
                                                             @enderror
-                                                        </div>
+                                                        {{--</div>--}}
                                                     </div>
 
-                                                    <div class="row mb-3">
+                                                    <div class="field">
                                                         <label for="telephone"
-                                                               class="col-md-4 col-form-label text-md-end">
-                                                            {{ __("Téléphone") }}
+                                                               class="">
+                                                            <b><span>{{ __("Téléphone") }}
                                                             <b class="" style="color: red;">*</b>
+                                                                </span></b>
                                                         </label>
 
-                                                        <div class="col-md-6">
+                                                        {{--<div class="col-md-6">--}}
                                                             <input id="telephone" type="tel"
                                                                    class="form-control @error('telephone') is-invalid @enderror"
                                                                    name="telephone" value="{{ $client->telephone }}"
@@ -473,14 +477,15 @@
                                                                         <strong>{{ $message }}</strong>
                                                                     </span>
                                                             @enderror
-                                                        </div>
+                                                        {{--</div>--}}
                                                     </div>
 
-                                                    <div class="row mb-3">
+                                                    <div class="field">
                                                         <label for="email"
-                                                               class="col-md-4 col-form-label text-md-end">{{ __("Email")}}</label>
+                                                               class="">
+                                                            <b><span>{{ __("Email")}}</span></b></label>
 
-                                                        <div class="col-md-6">
+                                                        {{--<div class="col-md-6">--}}
                                                             <input id="email" type="email"
                                                                    class="form-control @error('email') is-invalid @enderror"
                                                                    name="email" value="{{ $client->email }}"
@@ -491,12 +496,14 @@
                                                                         <strong>{{ $message }}</strong>
                                                                     </span>
                                                             @enderror
-                                                        </div>
+                                                        {{--</div>--}}
                                                     </div>
 
-                                                    <div class="row mb-3">
+                                                    <div class="field">
                                                         <label for="birthdate"
-                                                               class="col-md-4 col-form-label text-md-end"><br>{{ __("Date de Naissance (Jour Mois Année)") }}
+                                                               class="">
+                                                            <br>
+                                                            <b><span>{{ __("Date de Naissance (Jour Mois Année)") }}</span></b>
                                                         </label>
                                                             <?php
                                                             $date = Carbon::now();
@@ -513,7 +520,7 @@
                                                                 $day = $ymd[2];
                                                             }
                                                             ?>
-                                                        <div class="col-md-6">
+                                                        {{--<div class="col-md-6">--}}
                                                             <div class="row">
                                                                 <div class="col-md-4">
                                                                     <label for="day">{{__("Jour")}}</label>
@@ -722,14 +729,15 @@
                                                                         <strong>{{ $message }}</strong>
                                                                     </span>
                                                             @enderror
-                                                        </div>
+                                                        {{--</div>--}}
                                                     </div>
 
-                                                    <div class="row mb-3">
+                                                    <div class="field">
                                                         <label for="gender"
-                                                               class="col-md-4 col-form-label text-md-end">{{__('Sexe')}}</label>
+                                                               class="">
+                                                            <b><span>{{__('Sexe')}}</span></b></label>
 
-                                                        <div class="col-md-6">
+                                                        {{--<div class="col-md-6">--}}
                                                             <select id="gender"
                                                                     class="form-control form-select form-select-lg @error('gender') is-invalid @enderror"
                                                                     name="gender">
@@ -753,14 +761,15 @@
                                                                         <strong>{{ $message }}</strong>
                                                                     </span>
                                                             @enderror
-                                                        </div>
+                                                        {{--</div>--}}
                                                     </div>
 
-                                                    <div class="row mb-3">
+                                                    <div class="field">
                                                         <label for="city"
-                                                               class="col-md-4 col-form-label text-md-end">{{ __('Ville') }}</label>
+                                                               class="">
+                                                            <b><span>{{ __('Ville') }}</span></b></label>
 
-                                                        <div class="col-md-6">
+                                                        {{--<div class="col-md-6">--}}
                                                             <input id="city" type="text"
                                                                    class="form-control @error('city') is-invalid @enderror"
                                                                    name="city" autocomplete="city"
@@ -771,14 +780,15 @@
                                                                         <strong>{{ $message }}</strong>
                                                                     </span>
                                                             @enderror
-                                                        </div>
+                                                        {{--</div>--}}
                                                     </div>
 
-                                                    <div class="row mb-3">
+                                                    <div class="field">
                                                         <label for="quarter"
-                                                               class="col-md-4 col-form-label text-md-end">{{ __('Lieu de résidence') }}</label>
+                                                               class="">
+                                                            <b><span>{{ __('Lieu de résidence') }}</span></b></label>
 
-                                                        <div class="col-md-6">
+                                                        {{--<div class="col-md-6">--}}
                                                             <input id="quarter" type="text"
                                                                    class="form-control @error('quarter') is-invalid @enderror"
                                                                    name="quarter" autocomplete="quarter"
@@ -789,8 +799,13 @@
                                                                         <strong>{{ $message }}</strong>
                                                                     </span>
                                                             @enderror
-                                                        </div>
+                                                        {{--</div>--}}
                                                     </div>
+
+
+                                                   {{-- <br/><br/><br/><br/><br/><br/><br/><br/><br/>
+                                                    <br/><br/><br/><br/><br/><br/><br/><br/><br/>
+                                                    <br/><br/><br/><br/><br/><br/><br/><br/><br/>--}}
 
 
                                                 </div>
@@ -799,7 +814,7 @@
                                                             data-bs-dismiss="modal">Annuler
                                                     </button>
                                                     <button type="submit" class="btn btn-success">
-                                                        {{__("Modifier Client")}}
+                                                        {{__("Modifier")}}
                                                     </button>
                                                 </div>
 

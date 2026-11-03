@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row justify-content-center">
         @include('layouts.menu')
-        <div class="col-md-8">
+        <div class="col-md-9">
             <div class="card">
                 <div class="card-header"><h5>{{ __('Enregistrer un utilisateur') }}</h5></div>
                 <div class="card-body">
@@ -29,13 +29,13 @@
                             </div>
                         @endif--}}
 
-                        <div class="row mb-3">
-                            <label for="name" class="col-md-4 col-form-label text-md-end">
-                                {{ __('Nom utilisateur') }}
-                                <b class="" style="color: red;">*</b>
+                        <div class="field">
+                            <label for="name" class="">
+                                <b><span>{{ __('Nom utilisateur') }}
+                                        <b class="" style="color: red;">*</b></span></b>
                             </label>
 
-                            <div class="col-md-6">
+                            {{--<div class="col-md-6">--}}
                                 <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
 
                                 @error('name')
@@ -43,16 +43,16 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
-                            </div>
+                            {{--</div>--}}
                         </div>
 
-                        <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">
-                                {{ __('Email') }}
+                        <div class="field">
+                            <label for="email" class="">
+                                <b><span>{{ __('Email') }}</span></b>
                                 {{--<b class="" style="color: red;">*</b>--}}
                             </label>
 
-                            <div class="col-md-6">
+                            {{--<div class="col-md-6">--}}
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" autocomplete="email">
 
                                 @error('email')
@@ -60,16 +60,16 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
-                            </div>
+                            {{--</div>--}}
                         </div>
 
-                        <div class="row mb-3">
-                            <label for="username" class="col-md-4 col-form-label text-md-end">
-                                {{ __('Pseudo') }}
-                                <b class="" style="color: red;">*</b>
+                        <div class="field">
+                            <label for="username" class="">
+                                <b><span>{{ __('Pseudo') }}
+                                        <b class="" style="color: red;">*</b></span></b>
                             </label>
 
-                            <div class="col-md-6">
+                            {{--<div class="col-md-6">--}}
                                 <input id="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" required autocomplete="username" autofocus>
 
                                 @error('username')
@@ -77,16 +77,16 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
-                            </div>
+                            {{--</div>--}}
                         </div>
 
-                        <div class="row mb-3">
-                            <label for="isadmin" class="col-md-4 col-form-label text-md-end">
-                                {{ __('Rôle Administrateur ?') }}
+                        <div class="field">
+                            <label for="isadmin" class="">
+                                <b><span>{{ __('Rôle Administrateur ?') }}</span></b>
                                 {{--<b class="" style="color: red;">*</b>--}}
                             </label>
 
-                            <div class="col-md-6">
+                            {{--<div class="col-md-6">--}}
 
                                 <input id="isadmin" type="checkbox" class="@error('isadmin') is-invalid @enderror" name="isadmin" value="off"  autocomplete="isadmin"
                                 style="height: 20px; width: 20px; margin-top: 10px;" onchange="setIsAdmin(this, 'is_admin')">
@@ -96,11 +96,11 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
-                            </div>
+                            {{--</div>--}}
                         </div>
 
-                        <div class="row mb-0">
-                            <div class="col-md-6 offset-md-4">
+                        <div class="field">
+                            <div class="">
                                 <a {{--type="submit"--}} class="btn btn-primary" href="#" onclick="loadModal();"
                                    data-bs-toggle="modal" data-bs-target="#confirm-register-user-modal">
                                     {{ __('Enregistrer') }}
@@ -143,7 +143,7 @@
                                                         data-bs-dismiss="modal">Annuler
                                                 </button>
                                                 <button type="submit" class="btn btn-primary">
-                                                    {{__("Confirmer l'Enregistrement")}}
+                                                    {{__("Confirmer")}}
                                                 </button>
                                             </div>
                                             {{--</form>--}}

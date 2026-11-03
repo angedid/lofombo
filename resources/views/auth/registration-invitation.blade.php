@@ -29,10 +29,10 @@
                             </div>
                         @endif--}}
 
-                        <div class="row mb-3">
-                            <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Nom utilisateur') }}</label>
+                        <div class="field">
+                            <label for="name" class=""><b><span>{{ __('Nom utilisateur') }}</span></b></label>
 
-                            <div class="col-md-6">
+                            {{--<div class="col-md-6">--}}
                                 <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
 
                                 @error('name')
@@ -40,13 +40,14 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
-                            </div>
+                            {{--</div>--}}
                         </div>
 
-                        <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email') }}</label>
+                        <div class="field">
+                            <label for="email" class="">
+                                <b><span>{{ __('Email') }}</span></b></label>
 
-                            <div class="col-md-6">
+                            {{--<div class="col-md-6">--}}
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
 
                                 @error('email')
@@ -54,7 +55,7 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
-                            </div>
+                            {{--</div>--}}
                         </div>
 
                         {{--<div class="row mb-3">
@@ -79,10 +80,11 @@
                             </div>
                         </div>--}}
 
-                        <div class="row mb-3">
-                            <label for="isadmin" class="col-md-4 col-form-label text-md-end">{{ __('Rôle Administrateur ?') }}</label>
+                        <div class="field">
+                            <label for="isadmin" class="">
+                                <b><span>{{ __('Rôle Administrateur ?') }}</span></b></label>
 
-                            <div class="col-md-6">
+                            {{--<div class="col-md-6">--}}
 
                                 <input id="isadmin" type="checkbox" class="@error('isadmin') is-invalid @enderror" name="isadmin" value="off"  autocomplete="isadmin"
                                 style="height: 20px; width: 20px; margin-top: 10px;" onchange="setIsAdmin(this, 'is_admin')">
@@ -92,11 +94,11 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
-                            </div>
+                            {{--</div>--}}
                         </div>
 
-                        <div class="row mb-0">
-                            <div class="col-md-6 offset-md-4">
+                        <div class="field">
+                            <div class="">
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Valider') }}
                                 </button>

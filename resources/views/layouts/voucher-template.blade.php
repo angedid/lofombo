@@ -14,6 +14,16 @@
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])--}}
+    <style>
+        /* Reports render without Bootstrap, including when exported to PDF. */
+        table {
+            border-collapse: collapse;
+            border: 1px solid #000;
+        }
+        th, td {
+            border: 1px solid #000;
+        }
+    </style>
 </head>
 <body style="font-size: initial; font-family: 'DejaVu Sans Light';">
     <div id="app">

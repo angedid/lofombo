@@ -119,6 +119,11 @@ class ClientController extends Controller
         return $this->registerClient($request);
     }
     public function registerClient(Request $request){
+        $telephone0 = $request->input('telephone');
+        $request->merge([
+            'telephone' => "+237".$telephone0,
+        ]);
+
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255|min:2',
             'telephone' => 'required|phone|unique:clients',
@@ -401,10 +406,29 @@ class ClientController extends Controller
 
         session()->flash('status', __('Client enregistré avec succès !'));
 
-        return redirect()->back()->with('status', __('Client enregistré avec succès !'));//->withSuccess(['status' => 'Great! You have Successfully Registered.', 'client' => $client]);
+        $locale = GuestController::getApplicationLocal();
+        return redirect()->route('home.clients-list', ['locale' => $locale])->with('status', __('Client enregistré avec succès !'));
+
+
+
+
+        /*if (count(SuperAdmin::all()) === 0 || count(User::all()) === 0) {
+            (new GuestController())->index($locale);
+        }*/
+
+
+        //$defaultLocale = Config::get('app.locale');
+        //dd(app('config'));
+        //dd(app()->getLocale());
+        return redirect()->route('welcome', ['locale' => $locale]);
+        //return redirect()->back()->with('status', __('Client enregistré avec succès !'));//->withSuccess(['status' => 'Great! You have Successfully Registered.', 'client' => $client]);
     }
 
     public function updateClient(Request $request, string $locale, string $clientId){
+        /*$telephone0 = $request->input('telephone');
+        $request->merge([
+            'telephone' => "+237".$telephone0,
+        ]);*/
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255|min:2',
             'telephone' => 'required|phone',
@@ -688,6 +712,11 @@ class ClientController extends Controller
             //'userid' => 'required|numeric|exists:users,id',
             //'clientid' => 'required|uuid|exists:clients,id',
             //'reward' => 'required|uuid|exists:rewards,id',
+        ],[
+            'code.required' => __("Le code est obligatoire"),
+            'code.string' => __('Code utilisation inseré incorrect! Veuillez saisir le bon code'),
+            'code.max' => __('Code utilisation inseré incorrect! Veuillez saisir le bon code'),
+            'code.min' => __('Code utilisation inseré incorrect! Veuillez saisir le bon code')
         ]);
         if($validator->fails()){
             session()->flash('error', $validator->errors()->first());
@@ -701,6 +730,10 @@ class ClientController extends Controller
                 //'userid' => 'required|numeric|exists:users,id',
                 //'clientid' => 'required|uuid|exists:clients,id',
                 'reward' => 'required|uuid|exists:rewards,id',
+            ],[
+                'reward.required' => __("La récompense est obligatoire"),
+                'reward.uuid' => __("La récompense est incorrecte"),
+                'reward.exists' => __("La récompense n'est pas valide")
             ]);
             if($validatorReward->fails()){
                 session()->flash('error', $validatorReward->errors()->first());

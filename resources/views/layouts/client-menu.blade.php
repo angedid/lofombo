@@ -6,11 +6,15 @@
   ; use App\Models\Notification
   ;
 @endphp
-<div class="col-md-3">
-    <div class="card">
-        <div class="card-header"><h5>{{ 'Menu' }}</h5></div>
-        <div class="card-body">
-            <div class="list-group list-group-flush">
+<div class="col-md-3 sidebar">
+    <div class="">
+        <div class="menu-title">
+            {{ __('Menu principal') }}
+            {{--<img src="{{asset('images/icons8-triangle-arrow-24.png')}}" alt="" height="15" width="15"/>--}}
+        </div>
+        {{--<div class=""><h5>{{ 'Menu' }}</h5></div>--}}
+        <div class="">
+            <div class="list-group list-group-flush menu-list">
                 @if(Auth::guard('client')->check() && Auth::guard('client')->user()->active)
                     @php
 
@@ -198,12 +202,12 @@
                                                 @csrf
 
                                                 @if(count($possibleLevels) >= 1)
-                                                    <div class="row mb-3">
+                                                    <div class="field">
                                                         {{--<input type="hidden" name="transactiontypeid"
                                                                value="{{$transactiontype->id}}">--}}
                                                         <label for="level"
-                                                               class="col-md-4 col-form-label text-md-end">{{ __('Type de Bon') }}</label>
-                                                        <div class="col-md-6">
+                                                               class=""><b><span>{{ __('Type de Bon') }}</span></b></label>
+                                                        {{--<div class="col-md-6">--}}
                                                             <select id="level"
                                                                     class="form-control form-select form-select-lg @error('level') is-invalid @enderror"
                                                                     name="level">
@@ -218,7 +222,7 @@
                                                                  <strong>{{ $message }}</strong>
                                                              </span>
                                                             @enderror
-                                                        </div>
+                                                        {{--</div>--}}
 
                                                         <input type="hidden" name="clientid" id="clientid"
                                                                value="{{$client->id}}">

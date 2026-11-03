@@ -29,9 +29,10 @@
                             </div>
                         @endif--}}
 
-                        <div class="row mb-3">
-                            <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Nom utilisateur') }}</label>
-                            <div class="col-md-6">
+                        <div class="field">
+                            <label for="name" class="">
+                                <b><span>{{ __('Nom utilisateur') }}</span></b></label>
+                            {{--<div class="col-md-6">--}}
                                 <input id="name"
                                        type="text"
                                        class="form-control @error('name') is-invalid @enderror"
@@ -42,13 +43,13 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
-                            </div>
+                            {{--</div>--}}
                         </div>
 
-                        <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email') }}</label>
+                        <div class="field">
+                            <label for="email" class=""><b><span>{{ __('Email') }}</span></b></label>
 
-                            <div class="col-md-6">
+                            {{--<div class="col-md-6">--}}
                                 <input id="email"
                                        type="email"
                                        class="form-control @error('email') is-invalid @enderror"
@@ -60,13 +61,13 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
-                            </div>
+                            {{--</div>--}}
                         </div>
 
-                        <div class="row mb-3">
-                            <label for="telephone" class="col-md-4 col-form-label text-md-end">{{ __("Téléphone") }}</label>
+                        <div class="field">
+                            <label for="telephone" class=""><b><span>{{ __("Téléphone") }}</span></b></label>
 
-                            <div class="col-md-6">
+                            {{--<div class="col-md-6">--}}
                                 <input id="telephone"
                                        type="tel"
                                        class="form-control @error('telephone') is-invalid @enderror"
@@ -78,11 +79,11 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
-                            </div>
+                            {{--</div>--}}
                         </div>
 
-                        <div class="row mb-0">
-                            <div class="col-md-6 offset-md-4">
+                        <div class="field">
+                            <div class="">
                                 <button type="submit" class="btn btn-primary">
                                     {{ __("Modifier") }}
                                 </button>

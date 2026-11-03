@@ -14,17 +14,17 @@
             <div class="col-md-9">
                 <div class="card" style="border: 0 red solid; padding: 0;">
                     <h4 class="card-header">{{__("Contactez-nous")}}</h4>
-                    <br>
-                    <div class="card-body" style="border: 0 red solid; margin: 0; padding: 0;">
-                        <br>
+
+                    <div class="card-body" style="border: 0 red solid; margin: 0; padding: 15px;">
+
                         <p style="font-size: 1.25em;">
                             <strong>{{__("Notre équipe est disponible pour répondre à toutes vos questions. Choisissez votre mode de contact ci-dessous.")}}</strong>
                         </p>
-                        <br> <br>
+                        <br>
 
-                        <div class="row">
-                            <br>
-                            <div class="col col-md-6">
+                        <div class="row" >
+                            <div class="col col-md-6" >
+                                <br>
                                 <h4>
                                     {{__("Vous avez une question ?")}}
                                 </h4>
@@ -41,7 +41,6 @@
                                             {{__("Téléphone")}}
                                         </h4>
                                         <ul style="font-size: 1.25em;">
-                                            <li>(+237)691179154</li>
                                             <li>(+237)697392742</li>
                                             <li>(+237)695164930</li>
                                         </ul>
@@ -51,8 +50,7 @@
                                             {{__("Email")}}
                                         </h4>
                                         <ul style="font-size: 1.25em;">
-                                            <li>support@lofombo.com</li>
-                                            <li>lofombocm@gmail.com</li>
+                                            <li>cmlofombo@gmail.com</li>
                                             <li>kanakemda@yahoo.com</li>
                                             <li>didnkallaehawe@gmail.com</li>
                                         </ul>
@@ -62,9 +60,9 @@
                                             {{__("Réseaux sociaux")}}
                                         </h4>
                                         <ul style="font-size: 1.25em;">
-                                            <li>Facebook</li>
+                                            {{--<li>Facebook</li>
                                             <li>WhatsApp</li>
-                                            <li>...</li>
+                                            <li>...</li>--}}
                                         </ul>
                                     </li>
                                 </ol>
@@ -86,7 +84,7 @@
                                                 {{ session('error') }}
                                             </div>
                                         @endif
-                                        <div class="form-group" style="margin-bottom: 20px;">
+                                        <div class="form-group field" style="margin-bottom: 20px;">
                                             <label for="name" style="margin-bottom: 7px;">{{__("Nom")}}&nbsp;<b class="" style="color: red;">*</b></label>
                                             <input name="name" type="text" class="form-control form-control @error('name') is-invalid @enderror" id="name" placeholder="{{__("Nom complet")}}" >
                                             @error('name')
@@ -95,7 +93,7 @@
                                             </span>
                                             @enderror
                                         </div>
-                                        <div class="form-group" style="margin-bottom: 20px;">
+                                        <div class="form-group field" style="margin-bottom: 20px;">
                                             <label for="email" style="margin-bottom: 7px;">{{__("Email")}} &nbsp;<b class="" style="color: red;">*</b></label>
                                             <input name="email" type="email" class="form-control form-control @error('email') is-invalid @enderror" id="email" placeholder="{{__("")}}" >
                                             @error('email')
@@ -104,10 +102,10 @@
                                             </span>
                                             @enderror
                                         </div>
-                                        <div class="form-group" style="margin-bottom: 20px;">
+                                        <div class="form-group field" style="margin-bottom: 20px;">
                                             <label for="phone" style="margin-bottom: 7px;">{{__("Numéro Tel")}}</label>
                                             <input name="phone" type="tel" class="form-control form-control @error('phone') is-invalid @enderror"
-                                                   id="phone" placeholder="{{__("+237691179154")}}" onkeyup="removeNonNumericCharaters(this);">
+                                                   id="phone" placeholder="{{__("691179154")}}" onkeyup="removeNonNumericCharaters(this);">
                                             @error('phone')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -115,7 +113,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="form-group" style="margin-bottom: 20px;">
+                                        <div class="form-group field" style="margin-bottom: 20px;">
                                             <label for="subject" style="margin-bottom: 7px;">{{__("Sujet")}}&nbsp;<b class="" style="color: red;">*</b></label>
                                             <input name="subject" type="text" class="form-control form-control @error('subject') is-invalid @enderror" id="subject" placeholder="{{__("")}}" >
                                             @error('subject')
@@ -125,7 +123,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="form-group" style="margin-bottom: 20px;">
+                                        <div class="form-group field" style="margin-bottom: 20px;">
                                             <label for="message" style="margin-bottom: 7px;">{{__("Message")}}&nbsp;<b class="" style="color: red;">*</b></label>
                                             <textarea name="message" class="form-control form-control @error('message') is-invalid @enderror" id="message"
                                                       placeholder="{{__("Messase")}}" rows="10"></textarea>
@@ -142,17 +140,13 @@
                                     </form>
                                     <script type="text/javascript">
                                         function removeNonNumericCharaters(theInput){
-                                            theInput.value = "+" + theInput.value.replace(/\D/g, '');
+                                            theInput.value = theInput.value.replace(/\D/g, '');
                                         }
                                     </script>
                                 </div>
                             </div>
                         </div>
 
-
-
-                        <br><br><br><br><br><br><br><br><br><br><br>
-                        <br><br><br><br><br><br><br><br><br><br><br>
                     </div>
                 </div>
             </div>

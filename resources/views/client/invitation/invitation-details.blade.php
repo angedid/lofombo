@@ -118,7 +118,7 @@
                             @if($invitation->state === \App\Models\FriendInvitatin::ACCEPTED)
                                 <button type="button" class="btn btn-success" data-bs-toggle="modal"
                                         data-bs-target="#confirm-client-invitation-modal">
-                                    {{ __('Confirmer le client') }}
+                                    {{ __('Confirmer') }}
                                 </button>
 
                                 <div class="modal fade" id="confirm-client-invitation-modal" data-bs-backdrop="static"

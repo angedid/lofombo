@@ -298,6 +298,12 @@
 
                                                 @endif
 
+
+                                                <a class="btn btn-sm btn-link" href="{{route('user.update-parameter.index', $user->id)}}"
+                                                   style="float: right;">
+                                                    <b style="color: darkslateblue;">{{ __("Editer") }}</b>
+                                                </a>
+
                                         </td>
                                     </tr>
                                 @endforeach

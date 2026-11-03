@@ -6,7 +6,7 @@
 <div class="container">
     <div class="row justify-content-center">
         @include('layouts.menu')
-        <div class="col-md-8">
+        <div class="col-md-9">
             <div class="card">
                 <div class="card-header" >
                     <h5>{{ __('Réinitialisation du mot de passe') }}</h5>
@@ -48,13 +48,13 @@
                             </div>
                         </div>--}}
 
-                        <div class="row mb-3">
-                            <label for="current-pwd" class="col-md-4 col-form-label text-md-end">
-                                {{ __('Mot de passe actuel') }}
-                                <b class="" style="color: red;">*</b>
+                        <div class="field">
+                            <label for="current-pwd" class="">
+                                <b><span>{{ __('Mot de passe actuel') }}
+                                        <b class="" style="color: red;">*</b></span></b>
                             </label>
 
-                            <div class="col-md-6">
+                            {{--<div class="col-md-6">--}}
                                 <input id="current-pwd" type="password" class="form-control @error('currentpassword') is-invalid @enderror" name="currentpassword" required autocomplete="currentpassword">
 
                                 @error('currentpassword')
@@ -62,16 +62,16 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
-                            </div>
+                            {{--</div>--}}
                         </div>
 
-                        <div class="row mb-3">
-                            <label for="password" class="col-md-4 col-form-label text-md-end">
-                                {{ __('Password') }}
-                                <b class="" style="color: red;">*</b>
+                        <div class="field">
+                            <label for="password" class="">
+                                <b><span>{{ __('Password') }}
+                                        <b class="" style="color: red;">*</b></span></b>
                             </label>
 
-                            <div class="col-md-6">
+                            {{--<div class="col-md-6">--}}
                                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="password">
 
                                 @error('password')
@@ -79,22 +79,22 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
-                            </div>
+                            {{--</div>--}}
                         </div>
 
-                        <div class="row mb-3">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-end">
-                                {{ __('Confirmation Mot de passe') }}
-                                <b class="" style="color: red;">*</b>
+                        <div class="field">
+                            <label for="password-confirm" class="">
+                                <b><span>{{ __('Confirmation Mot de passe') }}
+                                        <b class="" style="color: red;">*</b></span></b>
                             </label>
 
-                            <div class="col-md-6">
+                            {{--<div class="col-md-6">--}}
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                            </div>
+                            {{--</div>--}}
                         </div>
 
-                        <div class="row mb-0">
-                            <div class="col-md-6 offset-md-4">
+                        <div class="field">
+                            <div class="">
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Valider') }}
                                 </button>

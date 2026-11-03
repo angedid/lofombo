@@ -182,12 +182,12 @@
 
                                                     @csrf
 
-                                                    <div class="row mb-3" >
+                                                    <div class="field" >
 
-                                                        <label for="userid" class="col-md-5 col-form-label text-md-end">{{ 'Utilisateur' }}
-                                                            <b class="" style="color: red;">*</b></label>
+                                                        <label for="userid" class=""><b><span>{{ 'Utilisateur' }}
+                                                                    <b class="" style="color: red;">*</b></span></b></label>
 
-                                                        <div class="col-md-7">
+                                                        {{--<div class="col-md-7">--}}
                                                             <select id="userid"  class="form-control @error('userid') is-invalid @enderror"
                                                                     name="userid"  required autocomplete="userid" autofocus
                                                                     >
@@ -201,7 +201,7 @@
                                                                     <strong>{{ $message }}</strong>
                                                                 </span>
                                                             @enderror
-                                                        </div>
+                                                        {{--</div>--}}
                                                     </div>
 
                                                     <input type="hidden" name="licensid" value="{{$licence->id}}">

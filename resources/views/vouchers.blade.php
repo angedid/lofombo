@@ -15,6 +15,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h5 style="display: inline;"><strong>{{ __("Bons du système") }}</strong></h5>
+
                     </div>
                     <div class="card-body">
                         @if (session('status'))
@@ -288,14 +289,14 @@
                                                                                     {{__("Après cette étape de confirmation, Aucun retour n'est possible pour l'utilisation du Bon. Rassurez vous auprès du client qu'il souhaite vraiment utiliser son BON")}}
                                                                                 </strong></h6>
 
-                                                                            <div class="row mb-3">
+                                                                            <div class="field">
                                                                                 <label for="code"
-                                                                                       class="col-md-4 col-form-label text-md-end">{{ __("Code d'utilisation") }}
+                                                                                       class=""><b><span>{{ __("Code d'utilisation") }}
                                                                                     <b class=""
-                                                                                       style="color: red;">*</b>
+                                                                                       style="color: red;">*</b></span></b>
                                                                                 </label>
 
-                                                                                <div class="col-md-8">
+                                                                                {{--<div class="col-md-8">--}}
                                                                                     <input id="code" type="text"
                                                                                            class="form-control @error('code') is-invalid @enderror"
                                                                                            name="code"
@@ -311,17 +312,18 @@
                                                                                             <strong>{{ $message }}</strong>
                                                                                         </span>
                                                                                     @enderror
-                                                                                </div>
+                                                                                {{--</div>--}}
                                                                             </div>
 
                                                                             {{--@if(count($rewards) > 0)--}}
-                                                                            <div class="row mb-3">
+                                                                            <div class="field">
                                                                                 <label for="code"
-                                                                                       class="col-md-4 col-form-label text-md-end">{{ __('Récompense') }}
+                                                                                       class="">
+                                                                                    <b><span>{{ __('Récompense') }}</span></b>
                                                                                     {{--<b class="" style="color: red;">*</b>--}}
                                                                                 </label>
 
-                                                                                <div class="col-md-8">
+                                                                                {{--<div class="col-md-8">--}}
                                                                                     <select id="reward"
                                                                                             class="form-control @error('reward') is-invalid @enderror"
                                                                                             name="reward"
@@ -353,18 +355,18 @@
                                                                                                     <strong>{{ $message }}</strong>
                                                                                                 </span>
                                                                                     @enderror
-                                                                                </div>
+                                                                                {{--</div>--}}
                                                                             </div>
 
                                                                             <fieldset id="reward_form" style="display: none; border: 1px darkblue solid; border-radius: 5px;">
                                                                                 <legend><small style="font-size: small;">{{__("Ajout de récompense")}}</small></legend>
-                                                                                <div class="row mb-3">
+                                                                                <div class="field">
                                                                                     <label for="name"
-                                                                                           class="col-md-5 col-form-label text-md-end">{{ __('Nom') }}
+                                                                                           class=""><b><span>{{ __('Nom') }}
                                                                                         <b class=""
-                                                                                           style="color: red;">*</b></label>
+                                                                                           style="color: red;">*</b></span></b></label>
 
-                                                                                    <div class="col-md-7">
+                                                                                    {{--<div class="col-md-7">--}}
                                                                                         <input id="name" type="text"
                                                                                                class="form-control @error('name') is-invalid @enderror"
                                                                                                name="name"
@@ -379,16 +381,16 @@
                                                                                                         <strong>{{ $message }}</strong>
                                                                                                     </span>
                                                                                         @enderror
-                                                                                    </div>
+                                                                                    {{--</div>--}}
                                                                                 </div>
 
-                                                                                <div class="row mb-3">
+                                                                                <div class="field">
                                                                                     <label for="nature"
-                                                                                           class="col-md-5 col-form-label text-md-end">{{ __('Nature') }}
+                                                                                           class=""><b><span>{{ __('Nature') }}
                                                                                         <b class=""
-                                                                                           style="color: red;">*</b></label>
+                                                                                           style="color: red;">*</b></span></b></label>
 
-                                                                                    <div class="col-md-7">
+                                                                                    {{--<div class="col-md-7">--}}
                                                                                         <select id="nature"
                                                                                                 type="text"
                                                                                                 class="form-control @error('nature') is-invalid @enderror"
@@ -410,16 +412,16 @@
                                                                                                         <strong>{{ $message }}</strong>
                                                                                                     </span>
                                                                                         @enderror
-                                                                                    </div>
+                                                                                    {{--</div>--}}
                                                                                 </div>
 
-                                                                                <div class="row mb-3">
+                                                                                <div class="field">
                                                                                     <label for="value"
-                                                                                           class="col-md-5 col-form-label text-md-end">{{ __('Valeur financière') }}
+                                                                                           class=""><b><span>{{ __('Valeur financière') }}
                                                                                         <b class=""
-                                                                                           style="color: red;">*</b></label>
+                                                                                           style="color: red;">*</b></span></b></label>
 
-                                                                                    <div class="col-md-7">
+                                                                                    {{--<div class="col-md-7">--}}
                                                                                         <input id="value"
                                                                                                type="number"
                                                                                                class="form-control @error('value') is-invalid @enderror"
@@ -435,15 +437,15 @@
                                                                                                         <strong>{{ $message }}</strong>
                                                                                                     </span>
                                                                                         @enderror
-                                                                                    </div>
+                                                                                    {{--</div>--}}
                                                                                 </div>
 
-                                                                                <div class="row mb-3">
+                                                                                <div class="field">
                                                                                     <label for="level"
-                                                                                           class="col-md-5 col-form-label text-md-end">{{ __('Type de bon') }}
+                                                                                           class=""><b><span>{{ __('Type de bon') }}
                                                                                         <b class=""
-                                                                                           style="color: red;">*</b></label>
-                                                                                    <div class="col-md-7">
+                                                                                           style="color: red;">*</b></span></b></label>
+                                                                                    {{--<div class="col-md-7">--}}
                                                                                         @php
                                                                                             //$config = Config::where('is_applicable', true)->first();
                                                                                             $levels = json_decode($config->levels, true);
@@ -465,12 +467,12 @@
                                                                                                         <strong>{{ $message }}</strong>
                                                                                                     </span>
                                                                                         @enderror
-                                                                                    </div>
+                                                                                    {{--</div>--}}
                                                                                 </div>
 
-                                                                                <div class="row mb-0">
+                                                                                <div class="field">
                                                                                     <div
-                                                                                        class="col-md-6 offset-md-5">
+                                                                                        class="">
                                                                                         <a class="btn btn-link"
                                                                                            href="#save-reword"
                                                                                            id="save-reword" onclick="postRewardForm();"

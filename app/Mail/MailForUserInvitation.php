@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Models\Config;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
@@ -28,8 +29,9 @@ class MailForUserInvitation extends Mailable
      */
     public function envelope(): Envelope
     {
+        $config = Config::where('is_applicable', true)->first();
         return new Envelope(
-            subject: __("Invitation à s'enregistrer  à la plateforme de fidélité de") . ' ' . $this->data['enterprise'],
+            subject: __('PROGRAMME DE FIDELITE LOFOMBO DE ') . $config->enterprise_name . ' – ' . __("Invitation à s'enregistrer  à la plateforme de fidélité de") . ' ' . $this->data['enterprise'],
         );
     }
 

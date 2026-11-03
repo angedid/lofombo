@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Models\Config;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -29,8 +30,9 @@ class MailForUserRegistered extends Mailable
      */
     public function envelope(): Envelope
     {
+        $config = Config::where('is_applicable', true)->first();
         return new Envelope(
-            subject: __("Enregistrement à la plateforme de fidélité de") . ' ' . $this->data['enterprise'],
+            subject:  __('PROGRAMME DE FIDELITE LOFOMBO DE ') . $config->enterprise_name . ' – ' . __("Enregistrement à la plateforme de fidélité de") . ' ' . $this->data['enterprise'],
         );
     }
 

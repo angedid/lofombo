@@ -4,11 +4,15 @@
     use App\Models\Config;
 @endphp
 
-<div class="col-md-3" >
-    <div class="card">
-        <div class="card-header"><h5>{{ 'Menu' }}</h5></div>
-        <div class="card-body" >
-            <div class="list-group list-group-flush">
+<div class="col-md-3 sidebar" >
+    <div class="">
+        <div class="menu-title">
+            {{ __('Menu principal') }}
+            {{--<img src="{{asset('images/icons8-triangle-arrow-24.png')}}" alt="" height="15" width="15"/>--}}
+        </div>
+        {{--<div class="card-header"><h5>{{ 'Menu' }}</h5></div>--}}
+        <div class="">
+            <div class="list-group list-group-flush menu-list">
                 @if(Auth::guard('super_admin')->check() && Auth::guard('super_admin')->user()->is_super_admin)
                     <a class="list-group-item list-group-item-action btn btn-link"  href="{{ route('home-super-admin')}}">
                         <h6><img src="{{asset('images/icons8-certificate-25.png')}}" alt=""> &nbsp;{{ __('Licences') }}</h6>

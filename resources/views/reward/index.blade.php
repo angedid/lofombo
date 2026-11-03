@@ -35,11 +35,12 @@
                                     </span> <br/>
                             @enderror--}}
 
-                            <div class="row mb-3" >
-                                <label for="name" class="col-md-5 col-form-label text-md-end">{{ __('Nom') }}
-                                    <b class="" style="color: red;">*</b></label>
+                            <div class="field" >
+                                <label for="name" class="">
+                                    <b><span>{{ __('Nom') }}
+                                            <b class="" style="color: red;">*</b></span></b></label>
 
-                                <div class="col-md-7">
+                                {{--<div class="col-md-7">--}}
                                     <input id="name" type="text" class="form-control @error('name') is-invalid @enderror"
                                            name="name" value="{{ old('name') }}" required autocomplete="name" autofocus
                                            placeholder="{{ __("Nom de la récompense") }}">
@@ -48,14 +49,15 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                     @enderror
-                                </div>
+                                {{--</div>--}}
                             </div>
 
-                            <div class="row mb-3" >
-                                <label for="nature" class="col-md-5 col-form-label text-md-end">{{ __('Nature') }}
-                                    <b class="" style="color: red;">*</b></label>
+                            <div class="field" >
+                                <label for="nature" class="">
+                                    <b><span>{{ __('Nature') }}
+                                            <b class="" style="color: red;">*</b></span></b></label>
 
-                                <div class="col-md-7">
+                                {{--<div class="col-md-7">--}}
                                     <select id="nature" type="text" class="form-control @error('nature') is-invalid @enderror"
                                            name="nature"  required  autofocus>
                                         <option value="">-- {{ __("Sélectionnez ici") }} --</option>
@@ -68,14 +70,15 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                     @enderror
-                                </div>
+                                {{--</div>--}}
                             </div>
 
-                            <div class="row mb-3" >
-                                <label for="value" class="col-md-5 col-form-label text-md-end">{{ __("Valeur financière") }}
-                                    <b class="" style="color: red;">*</b></label>
+                            <div class="field" >
+                                <label for="value" class="">
+                                    <b><span>{{ __("Valeur financière") }}
+                                            <b class="" style="color: red;">*</b></span></b></label>
 
-                                <div class="col-md-7">
+                                {{--<div class="col-md-7">--}}
                                     <input id="value" type="number" class="form-control @error('value') is-invalid @enderror"
                                            name="value" value="{{ old('value') }}" required autocomplete="value" autofocus
                                            placeholder="">
@@ -84,13 +87,14 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                     @enderror
-                                </div>
+                                {{--</div>--}}
                             </div>
 
-                            <div class="row mb-3" >
-                                <label for="level" class="col-md-5 col-form-label text-md-end">{{ __("Type de Bon") }}
-                                    <b class="" style="color: red;">*</b></label>
-                                <div class="col-md-7">
+                            <div class="field" >
+                                <label for="level" class="">
+                                    <b><span>{{ __("Type de Bon") }}
+                                            <b class="" style="color: red;">*</b></span></b></label>
+                                {{--<div class="col-md-7">--}}
                                     @php
                                         $config = Config::where('is_applicable', true)->first();
                                         $levels = json_decode($config->levels, true);
@@ -107,14 +111,15 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                     @enderror
-                                </div>
+                                {{--</div>--}}
                             </div>
 
-                            <div class="row mb-3" >
-                                <label for="image" class="col-md-5 col-form-label text-md-end">{{ __('Image') }}
-                                    <b class="" style="color: red;"></b></label>
+                            <div class="field" >
+                                <label for="image" class="">
+                                    <b><span>{{ __('Image') }}
+                                            <b class="" style="color: red;"></b></span></b></label>
 
-                                <div class="col-md-7">
+                                {{--<div class="col-md-7">--}}
                                     <input id="image" type="file" class="form-control @error('name') is-invalid @enderror"
                                            name="image" value="{{ old('image') }}" autofocus
                                            placeholder="{{ __("Image de la récompense") }}">
@@ -123,11 +128,11 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                     @enderror
-                                </div>
+                                {{--</div>--}}
                             </div>
 
-                            <div class="row mb-0">
-                                <div class="col-md-6 offset-md-5">
+                            <div class="field">
+                                <div class="">
                                     <button type="submit" class="btn btn-primary">
                                         {{ __('Enregistrer') }}
                                     </button>

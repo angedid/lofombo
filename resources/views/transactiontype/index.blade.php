@@ -28,11 +28,12 @@
                                     </span> <br/>
                             @enderror
 
-                            <div class="row mb-3">
-                                <label for="name" class="col-md-4 col-form-label text-md-end">{{ 'Nom' }}
-                                    <b class="" style="color: red;">*</b></label>
+                            <div class="field">
+                                <label for="name" class="">
+                                    <b><span>{{ 'Nom' }}
+                                            <b class="" style="color: red;">*</b></span></b></label>
 
-                                <div class="col-md-8">
+                                {{--<div class="col-md-8">--}}
                                     <input id="name" name="name" type="text" class="form-control @error('name') is-invalid @enderror"
                                            value="{{ old('name') }}" required autocomplete="name" autofocus />
                                     @error('name')
@@ -40,31 +41,32 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                     @enderror
-                                </div>
+                                {{--</div>--}}
                             </div>
 
-                            <div class="row mb-3">
-                                <label for="description" class="col-md-4 col-form-label text-md-end">{{ 'Description' }}
-                                    <b class="" style="color: red;">*</b>
+                            <div class="field">
+                                <label for="description" class="">
+                                    <b><span>{{ 'Description' }}
+                                            <b class="" style="color: red;">*</b></span></b>
                                 </label>
 
-                                <div class="col-md-8">
+                                {{--<div class="col-md-8">--}}
                                     <textarea id="description"  class="form-control @error('amount') is-invalid @enderror" name="description"  required autocomplete="description" autofocus>{{ old('description') }}</textarea>
                                     @error('description')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                     @enderror
-                                </div>
+                                {{--</div>--}}
                             </div>
 
-                            <div class="row mb-3">
-                                <label for="credite_ou_debite" class="col-md-4 col-form-label text-md-end">
-                                    {{ 'Credite ou debite le compte de fidelite' }}
-                                    <b class="" style="color: red;">*</b>
+                            <div class="field">
+                                <label for="credite_ou_debite" class="">
+                                    <b><span>{{ 'Credite ou debite le compte de fidelite' }}
+                                            <b class="" style="color: red;">*</b></span></b>
                                 </label>
 
-                                <div class="col-md-8">
+                                {{--<div class="col-md-8">--}}
                                     <div class="row" id="credite_ou_debite">
                                         <div class="alert alert-light col-md-6">
                                             <label for="credit">Credite le compte</label> &nbsp; &nbsp;
@@ -75,11 +77,11 @@
                                             <input type="radio" id="debit" name="signe" value="-1"  style="height: 20px; width: 20px;"/>
                                         </div>
                                     </div>
-                                </div>
+                                {{--</div>--}}
                             </div>
 
-                            <div class="row mb-0">
-                                <div class="col-md-6 offset-md-3">
+                            <div class="field">
+                                <div class="">
                                     <button type="submit" class="btn btn-primary">
                                         {{ 'Enregistrer' }}
                                     </button>

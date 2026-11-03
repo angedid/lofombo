@@ -41,13 +41,13 @@
 
                             </div>--}}
 
-                            <div class="row mb-3">
-                                <label for="email" class="col-md-4 col-form-label text-md-end">
-                                    {{ __('Email') }}
-                                    <b class="" style="color: red;">*</b>
+                            <div class="field">
+                                <label for="email" class="">
+                                    <b><span>{{ __('Email') }}
+                                            <b class="" style="color: red;">*</b></span></b>
                                 </label>
 
-                                <div class="col-md-6">
+                                {{--<div class="col-md-6">--}}
                                     <input id="email" type="email"
                                            class="form-control @error('email') is-invalid @enderror"
                                            name="email" value="{{ old('email') }}" required autocomplete="email">
@@ -58,15 +58,16 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                     @enderror
-                                </div>
+                                {{--</div>--}}
                             </div>
 
-                            <div class="row mb-3">
-                                <label for="name" class="col-md-4 col-form-label text-md-end">{{ __("Nom de l'ami") }}
+                            <div class="field">
+                                <label for="name" class="">
+                                    <b><span>{{ __("Nom de l'ami") }}</span></b>
                                     {{--<b class="" style="color: red;">*</b>--}}
                                 </label>
 
-                                <div class="col-md-6">
+                                {{--<div class="col-md-6">--}}
                                     <input id="name" type="text" class="form-control @error('name') is-invalid @enderror"
                                            name="name" value="{{ old('name') }}"  autocomplete="name" autofocus>
                                     @error('name')
@@ -74,16 +75,16 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                     @enderror
-                                </div>
+                                {{--</div>--}}
                             </div>
 
-                            <div class="row mb-3">
-                                <label for="telephone" class="col-md-4 col-form-label text-md-end">
-                                    {{ __('Numéro Mobile') }}
+                            <div class="field">
+                                <label for="telephone" class="">
+                                    <b><span>{{ __('Numéro Mobile') }}</span></b>
                                     {{--<b class="" style="color: red;">*</b>--}}
                                 </label>
 
-                                <div class="col-md-6">
+                                {{--<div class="col-md-6">--}}
                                     <input id="telephone" type="tel" class="form-control @error('telephone') is-invalid @enderror" name="telephone" value="{{ old('telephone') }}"  autocomplete="telephone">
 
                                     @error('telephone')
@@ -91,7 +92,7 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                     @enderror
-                                </div>
+                                {{--</div>--}}
                             </div>
 
                             {{--<div class="row mb-3">
@@ -230,8 +231,8 @@
                                 </div>
                             </div>--}}
 
-                            <div class="row mb-0">
-                                <div class="col-md-6 offset-md-4">
+                            <div class="fiel">
+                                <div class="">
                                     <button type="submit" class="btn btn-primary">
                                         {{ __('Inviter') }}
                                     </button>

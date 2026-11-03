@@ -1,11 +1,13 @@
 
-@extends('layouts.email-template')
+@extends(\Illuminate\Support\Facades\Auth::check() ? 'layouts.app' : 'layouts.app-client')
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            @include(\Illuminate\Support\Facades\Auth::check() ? 'layouts.menu' : 'layouts.client-menu')
+            <div class="col-md-9">
                 <div class="card">
-                    <div class="card-body">
+                    <div class="card-header"><h5>{{ __('Notifications') }}</h5></div>
+                    <div class="card-body clearfix">
 
                         <span class="badge bg-light position-absolute top|start-*"
                               style="position: relative; right: 0; margin-right: 8px; margin-top: -10px;">

@@ -20,6 +20,7 @@
     "dependencies": {
         "@oddbird/popover-polyfill": "^0.6.1",
         "jquery": "^3.7.1",
+        "puppeteer": "^22.15.0",
         "util": "^0.12.5"
     }
 }

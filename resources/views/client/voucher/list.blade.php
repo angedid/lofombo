@@ -155,6 +155,7 @@
                                                                         </a>
                                                                     @endif
                                                                     <a class="dropdown-item btn btn-link" href="{{route('vouchers.download', $voucher->id)}}"
+                                                                       target="_blank" rel="noopener noreferrer"
                                                                        style="text-decoration: none;">
                                                                         <img src="{{asset('images/icons8-downloading-updates-20.png')}}" alt="{{__('Télécharger')}}">
                                                                         {{ __("Télécharger") }}

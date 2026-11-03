@@ -84,7 +84,7 @@ class VoucherControler extends Controller
             return redirect()->back()->with('error', __("Code invalide"));
         }
 
-        $level = json_decode($request->get('level'));
+        $level = json_decode($request->input('level'));
         $configid = $level->config;
         $config = Config::where('id', $configid)->first();
         if ($config === null) {
@@ -257,9 +257,10 @@ class VoucherControler extends Controller
                 $notifdata = json_encode($emaildata);
                 $notifsender = $client->name;
                 $notifrecipient = $admin->name;
-                $notifsenderaddress = $client->email == null ? Auth::user()->email : $client->email;
+                $notifsenderaddress = $client->email == null ? (Auth::check() ? Auth::user()->email: $admin->email) : $client->email;
                 $notifrecipientaddress = $admin->email;
                 $notifread = false;
+                //!Auth::check() && !Auth::guard('client')->check()
 
                 //dd($notifdata);
                 Notification::create(
@@ -441,7 +442,11 @@ class VoucherControler extends Controller
 
         $msg = __('Bon généré avec succès.');
         session()->flash('status', $msg);
-        return redirect()->back()->with('status', $msg);
+        if (Auth::guard('client')->check()) {
+            return redirect()->back()->with('status', $msg);
+        }
+        return redirect()->route('clients.getVouchersAll.all')->with('status', $msg);
+        //return redirect()->back()->with('status', $msg);
     }
 
     public function generateVoucherSerialNumber():string

@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row justify-content-center">
         @include('layouts.menu')
-        <div class="col-md-8">
+        <div class="col-md-9">
             <div class="card">
                 <div class="card-header"><h5>{{ __("Mes Paramètres") }}</h5></div>
                 <div class="card-body">
@@ -29,10 +29,10 @@
                             </div>
                         @endif--}}
 
-                        <div class="row mb-3">
-                            <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Nom utilisateur') }}</label>
+                        <div class="field">
+                            <label for="name" class=""><b><span>{{ __('Nom utilisateur') }}</span></b></label>
 
-                            <div class="col-md-6">
+                            {{--<div class="col-md-6">--}}
                                 <input id="name"
                                        type="text"
                                        class="form-control @error('name') is-invalid @enderror"
@@ -43,13 +43,14 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
-                            </div>
+                            {{--</div>--}}
                         </div>
 
-                        <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email') }}</label>
+                        <div class="field">
+                            <label for="email" class="">
+                                <b><span>{{ __('Email') }}</span></b></label>
 
-                            <div class="col-md-6">
+                            {{--<div class="col-md-6">--}}
                                 <input id="email"
                                        type="email"
                                        class="form-control @error('email') is-invalid @enderror"
@@ -61,7 +62,7 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
-                            </div>
+                            {{--</div>--}}
                         </div>
 
                         {{--<div class="row mb-3">
@@ -117,8 +118,8 @@
                             </div>
                         </div>--}}
 
-                        <div class="row mb-0">
-                            <div class="col-md-6 offset-md-4">
+                        <div class="field">
+                            <div class="">
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Modifier') }}
                                 </button>

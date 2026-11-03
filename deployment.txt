@@ -12,3 +12,19 @@
     b- sudo chmod -R 775 storage/
     c- https://www.youtube.com/watch?v=qE9IQI5jTMs
 
+application link: http://83.228.214.170/
+Server ip address: 83.228.214.170
+
+
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Step 1: Force Clear the Laravel CachesRun this exact chain of commands in your terminal to completely wipe out any cached configuration, application states, and routing files:bash php artisan config:clear
+php artisan cache:clear
+php artisan config:cache
+Use code with caution.Step 2: Restart Your Queue Workers (Crucial)Because your error log shows the email is being processed inside a background job (ProcessSendEMailPwdForgotJob), this step is the most common reason changes don't take effect.Queue workers are long-lived processes. They boot up once and store the entire environment in system memory. Changing your .env file does not change what a running queue worker sees.Stop and restart your queue by running:bashphp artisan queue:restart
+Use code with caution.(If you are running the queue locally in your terminal via php artisan queue:work, simply go to that terminal window, press Ctrl + C to kill it, and run php artisan queue:work again.)Step 3: Restart PHP-FPM / Your Web Server (If using production)If you are on a live server or staging environment (like Nginx with PHP-FPM), PHP-FPM can cache environment variables at the process level. Restarting the service forces a clean reload of the .env file:bashsudo systemctl restart php8.x-fpm   # Replace 8.x with your actual PHP version (e.g., php8.2-fpm)
+# or for Nginx/Apache:
+sudo systemctl restart nginx

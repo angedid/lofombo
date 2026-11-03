@@ -41,8 +41,8 @@
                             <table class="table table-borderless ">
                                 <thead>
                                 <tr>
-                                    <th colspan="5" style="text-align: center;">
-                                        <h2 style="border: 0 red solid; padding: 1px; color: #164fa9; font-size: 2em; font-weight: bold;">
+                                    <th colspan="5" style="/*text-align: center;*/">
+                                        <h2 style="/*border: 0 red solid; padding: 1px; color: #164fa9; font-size: 2em; font-weight: bold;*/">
                                             {{__('Quelques Rapports')}}</h2>
                                         <br>
                                     </th>
@@ -58,7 +58,7 @@
                                 </thead>--}}
                                 <tbody>
                                 <tr>
-                                    <th scope="row"><br><br>1</th>
+                                    <th scope="row"><br>1</th>
                                     <td class="form-group">
                                         <br>
                                         <label for="_tx" class="text-md-start"><strong>{{ __('Transactions') }}</strong></label>
@@ -101,7 +101,7 @@
                                     </td>
                                     <td>
                                         <br><br>
-                                        <form action="{{route('reports.txs')}}" method="GET"
+                                        <form action="{{route('reports.txs')}}" method="GET" target="_blank" rel="noopener"
                                               onsubmit="return submitTx();">
                                             <input type="hidden" name="tx" value="ALL" id="tx">
                                             <input type="hidden" name="from" value="" id="from">
@@ -195,7 +195,7 @@
                                     </td>
                                     <td>
                                         <br><br><br>
-                                        <form action="{{route('reports.vouchers')}}" method="GET"
+                                        <form action="{{route('reports.vouchers')}}" method="GET" target="_blank" rel="noopener"
                                               onsubmit="return submitVoucher();">
                                             <input type="hidden" name="state" value="ALL" id="state">
                                             <input type="hidden" name="level" value="ALL" id="level">
@@ -266,7 +266,7 @@
                                     </td>
                                     <td>
                                         <br><br><br>
-                                        <form action="{{route('reports.clients')}}" method="GET"
+                                        <form action="{{route('reports.clients')}}" method="GET" target="_blank" rel="noopener"
                                               onsubmit="return submitClient();">
                                             <input type="hidden" name="etat" value="ALL" id="etat">
                                             <input type="hidden" name="configid" value="{{$config->id}}" id="configid">

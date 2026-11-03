@@ -28,11 +28,11 @@
                                     </span> <br/>
                                 @enderror
 
-                                <div class="row mb-3">
-                                    <label for="clientid" class="col-md-3 col-form-label text-md-end">{{ 'Client' }}
-                                        <b class="" style="color: red;">*</b></label>
+                                <div class="field">
+                                    <label for="clientid" class=""><b><span>{{ 'Client' }}
+                                                <b class="" style="color: red;">*</b></span></b></label>
 
-                                    <div class="col-md-9">
+                                    {{--<div class="col-md-9">--}}
 
                                         <div class="input-group">
                                             <input list="clientids" id="clientid" name="clientid" class="form-control @error('clientid') is-invalid @enderror"
@@ -49,15 +49,16 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                         @enderror
-                                    </div>
+                                    {{--</div>--}}
                                 </div>
 
-                                <div class="row mb-3">
-                                    <label for="amount" class="col-md-3 col-form-label text-md-end">{{ 'Montant De l\'achat' }}
-                                        <b class="" style="color: red;">*</b>
+                                <div class="field">
+                                    <label for="amount" class="">
+                                        <b><span>{{ 'Montant De l\'achat' }}
+                                                <b class="" style="color: red;">*</b></span></b>
                                     </label>
 
-                                    <div class="col-md-9">
+                                    {{--<div class="col-md-9">--}}
                                         <input id="amount" type="number" class="form-control @error('amount') is-invalid @enderror" name="amount" value="{{ old('amount') }}" required autocomplete="amount" autofocus>
 
                                         @error('amount')
@@ -65,15 +66,15 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                         @enderror
-                                    </div>
+                                    {{--</div>--}}
                                 </div>
 
-                                <div class="row mb-3">
-                                    <label for="receiptnumber" class="col-md-3 col-form-label text-md-end">
-                                        {{ 'Numero du recu' }}
+                                <div class="field">
+                                    <label for="receiptnumber" class="">
+                                        <b><span>{{ 'Numero du recu' }}</span></b>
                                     </label>
 
-                                    <div class="col-md-9">
+                                    {{--<div class="col-md-9">--}}
                                         <input id="receiptnumber" type="text" class="form-control @error('receiptnumber') is-invalid @enderror" name="receiptnumber" value="{{ old('receiptnumber') }}" autocomplete="receiptnumber">
 
                                         @error('receiptnumber')
@@ -81,14 +82,15 @@
                                             <strong>{{ $message }}</strong>
                                         </span>
                                         @enderror
-                                    </div>
+                                    {{--</div>--}}
                                 </div>
 
-                                <div class="row mb-3">
-                                    <label for="transactiontypeid" class="col-md-3 col-form-label text-md-end">{{ 'Type de transaction' }}
-                                        <b class="" style="color: red;">*</b></label>
+                                <div class="field">
+                                    <label for="transactiontypeid" class="">
+                                        <b><span>{{ 'Type de transaction' }}
+                                                <b class="" style="color: red;">*</b></span></b></label>
 
-                                    <div class="col-md-9">
+                                    {{--<div class="col-md-9">--}}
                                             {{--<input list="clientids" id="clientid" name="clientid" class="form-control @error('clientid') is-invalid @enderror"
                                                    value="{{ old('clientid') }}" required autocomplete="clientid" autofocus />--}}
                                         <select id="transactiontypeid" class="form-control @error('transactiontypeid') is-invalid @enderror" name="transactiontypeid"  required>
@@ -103,7 +105,7 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                         @enderror
-                                    </div>
+                                    {{--</div>--}}
                                 </div>
 
                                 {{--<div class="row mb-3">
@@ -223,8 +225,8 @@
 
                                 </div>--}}
 
-                                <div class="row mb-0">
-                                    <div class="col-md-6 offset-md-3">
+                                <div class="field">
+                                    <div class="">
                                         <button type="submit" class="btn btn-primary">
                                             {{ 'Enregistrer' }}
                                         </button>
@@ -232,10 +234,6 @@
                                 </div>
                             </form>
 
-                    </div>
-
-                    <div class="card-footer">
-                        {{' '}}
                     </div>
                 </div>
             </div>

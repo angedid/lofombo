@@ -44,10 +44,10 @@
                             </div>
                         </div>--}}
 
-                        <div class="row mb-3">
-                            <label for="current-pwd" class="col-md-4 col-form-label text-md-end">{{ __('Mot de passe actuel') }}</label>
+                        <div class="field">
+                            <label for="current-pwd" class=""><b><span>{{ __('Mot de passe actuel') }}</span></b></label>
 
-                            <div class="col-md-6">
+                            {{--<div class="col-md-6">--}}
                                 <input id="current-pwd" type="password" class="form-control @error('currentpassword') is-invalid @enderror" name="currentpassword" required autocomplete="currentpassword">
 
                                 @error('currentpassword')
@@ -55,13 +55,13 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
-                            </div>
+                            {{--</div>--}}
                         </div>
 
-                        <div class="row mb-3">
-                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
+                        <div class="field">
+                            <label for="password" class=""><b><span>{{ __('Password') }}</span></b></label>
 
-                            <div class="col-md-6">
+                            {{--<div class="col-md-6">--}}
                                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="password">
 
                                 @error('password')
@@ -69,19 +69,20 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
-                            </div>
+                            {{--</div>--}}
                         </div>
 
-                        <div class="row mb-3">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('Confirmation Mot de passe') }}</label>
+                        <div class="field">
+                            <label for="password-confirm" class="">
+                                <b><span>{{ __('Confirmation Mot de passe') }}</span></b></label>
 
-                            <div class="col-md-6">
+                            {{--<div class="col-md-6">--}}
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                            </div>
+                            {{--</div>--}}
                         </div>
 
-                        <div class="row mb-0">
-                            <div class="col-md-6 offset-md-4">
+                        <div class="field">
+                            <div class="">
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Valider') }}
                                 </button>

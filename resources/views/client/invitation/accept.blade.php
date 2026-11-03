@@ -43,12 +43,12 @@
 
                             </div>--}}
                             <input type="hidden" name="inviter_id" id="inviter_id" value="{{$inviter->id}}">
-                            <div class="row mb-3">
-                                <label for="name" class="col-md-4 col-form-label text-md-end">{{ __("Nom") }}
-                                    <b class="" style="color: red;">*</b>
+                            <div class="field">
+                                <label for="name" class=""><b><span>{{ __("Nom") }}
+                                            <b class="" style="color: red;">*</b></span></b>
                                 </label>
 
-                                <div class="col-md-6">
+                                {{--<div class="col-md-6">--}}
                                     <input id="name" type="text" class="form-control @error('name') is-invalid @enderror"
                                            name="name" value="{{ $invitation->name == null ? old('name') : $invitation->name }}" required autocomplete="name" autofocus>
                                     @error('name')
@@ -56,16 +56,16 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                     @enderror
-                                </div>
+                                {{--</div>--}}
                             </div>
 
-                            <div class="row mb-3">
-                                <label for="telephone" class="col-md-4 col-form-label text-md-end">
-                                    {{ __('Numéro Mobile') }}
-                                    <b class="" style="color: red;">*</b>
+                            <div class="field">
+                                <label for="telephone" class="">
+                                    <b><span>{{ __('Numéro Mobile') }}
+                                            <b class="" style="color: red;">*</b></span></b>
                                 </label>
 
-                                <div class="col-md-6">
+                                {{--<div class="col-md-6">--}}
                                     <input id="telephone"
                                            type="tel" class="form-control @error('telephone') is-invalid @enderror"
                                            name="telephone" value="{{ $invitation->telephone == null ? old('telephone') : $invitation->telephone }}" required autocomplete="telephone">
@@ -75,7 +75,7 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                     @enderror
-                                </div>
+                                {{--</div>--}}
                             </div>
 
                             {{--<div class="row mb-3">
@@ -98,14 +98,15 @@
                                 </div>
                             </div>--}}
 
-                            <div class="row mb-3">
-                                <label for="birthdate" class="col-md-4 col-form-label text-md-end"><br>{{ __('Date de Naissance (Jour Mois Année)') }}</label>
+                            <div class="field">
+                                <label for="birthdate" class=""><br>
+                                    <b><span>{{ __('Date de Naissance (Jour Mois Année)') }}</span></b></label>
                                     <?php
                                     $date = Carbon::now();
                                     $thisyear = $date->year;
 
                                     ?>
-                                <div class="col-md-6">
+                                {{--<div class="col-md-6">--}}
                                     <div class="row">
                                         <div class="col-md-4">
                                             <label for="day" >{{__("Jour")}}</label>
@@ -184,13 +185,13 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                     @enderror
-                                </div>
+                                {{--</div>--}}
                             </div>
 
-                            <div class="row mb-3">
-                                <label for="gender" class="col-md-4 col-form-label text-md-end">{{__('Sexe')}}</label>
+                            <div class="field">
+                                <label for="gender" class=""><b><span>{{__('Sexe')}}</span></b></label>
 
-                                <div class="col-md-6">
+                                {{--<div class="col-md-6">--}}
                                     <select id="gender" class="form-control form-select form-select-lg @error('gender') is-invalid @enderror" name="gender" >
                                         <option value="">-- {{"Sélectionnez ici"}} --</option>
                                         <option value="M">{{__("Masculin")}}</option>
@@ -202,13 +203,13 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                     @enderror
-                                </div>
+                                {{--</div>--}}
                             </div>
 
-                            <div class="row mb-3">
-                                <label for="city" class="col-md-4 col-form-label text-md-end">{{ __("Ville") }}</label>
+                            <div class="field">
+                                <label for="city" class=""><b><span>{{ __("Ville") }}</span></b></label>
 
-                                <div class="col-md-6">
+                                {{--<div class="col-md-6">--}}
                                     <input id="city" type="text" class="form-control @error('city') is-invalid @enderror" name="city" autocomplete="city">
 
                                     @error('city')
@@ -216,13 +217,14 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                     @enderror
-                                </div>
+                                {{--</div>--}}
                             </div>
 
-                            <div class="row mb-3">
-                                <label for="quarter" class="col-md-4 col-form-label text-md-end">{{ __('Lieu de résidence') }}</label>
+                            <div class="field">
+                                <label for="quarter" class="">
+                                    <b><span>{{ __('Lieu de résidence') }}</span></b></label>
 
-                                <div class="col-md-6">
+                                {{--<div class="col-md-6">--}}
                                     <input id="quarter" type="text" class="form-control @error('quarter') is-invalid @enderror" name="quarter" autocomplete="quarter">
 
                                     @error('quarter')
@@ -230,11 +232,11 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                     @enderror
-                                </div>
+                                {{--</div>--}}
                             </div>
 
-                            <div class="row mb-0">
-                                <div class="col-md-6 offset-md-4">
+                            <div class="field">
+                                <div class="">
                                     <button type="submit" class="btn btn-primary">
                                         {{ __('Rejoindre') }}
                                     </button>

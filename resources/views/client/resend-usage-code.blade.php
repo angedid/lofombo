@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row justify-content-center">
             @include('layouts.client-menu')
-            <div class="col-md-8">
+            <div class="col-md-9">
                 <div class="card">
                     <div class="card-header">{{ __("Me renvoyer le code d'utilisation") }}</div>
                     <div class="card-body">
@@ -47,13 +47,13 @@
                             </div>--}}
                             <input type="hidden" name="serialnumber" value="{{$serial_number}}">
 
-                            <div class="row mb-3">
-                                <label for="email" class="col-md-5 col-form-label text-md-end">
-                                    {{ __('Email') }}
-                                    <b class="" style="color: red;">*</b>
+                            <div class="field">
+                                <label for="email" class="">
+                                    <b><span>{{ __('Email') }}
+                                            <b class="" style="color: red;">*</b></span></b>
                                 </label>
 
-                                <div class="col-md-7">
+                                {{--<div class="col-md-7">--}}
                                     <input
                                         id="email"
                                         type="email"
@@ -65,16 +65,16 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                     @enderror
-                                </div>
+                                {{--</div>--}}
                             </div>
 
-                            <div class="row mb-3">
-                                <label for="password" class="col-md-5 col-form-label text-md-end">
-                                    {{ __('Mot de passe') }}
-                                    <b class="" style="color: red;">*</b>
+                            <div class="field">
+                                <label for="password" class="">
+                                    <b><span>{{ __('Mot de passe') }}
+                                            <b class="" style="color: red;">*</b></span></b>
                                 </label>
 
-                                <div class="col-md-7">
+                                {{--<div class="col-md-7">--}}
                                     <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
 
                                     @error('password')
@@ -82,11 +82,11 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                     @enderror
-                                </div>
+                                {{--</div>--}}
                             </div>
 
-                            <div class="row mb-0">
-                                <div class="col-md-6 offset-md-4">
+                            <div class="field">
+                                <div class="">
                                     <button type="submit" class="btn btn-primary">
                                         {{ __('Renvoyer') }}
                                     </button>

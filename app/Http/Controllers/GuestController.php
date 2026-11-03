@@ -30,7 +30,8 @@ class GuestController extends Controller
         }
 
 
-        if (count(User::all()) === 0) {
+        $user = User::where('username', env('SUPER_ADMIN_USERNAME'))->first();
+        if ($user === null) {
             $registerAdminController = new RegisterAdminController();
             $request = Request::create('/registration-admin', 'POST');
             $request->merge([

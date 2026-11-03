@@ -64,6 +64,11 @@ class LoginClientController extends Controller
             //return view('welcome',['rewards' => Reward::where('active', true)->get(), 'error' => 'Veuillez attendre la configuration s\'il vous plait.']);
             //return view('auth.client.login', []);
         }
+        //session()->remove('error');
+        //session()->remove('status');
+        if(session('error') == 'Vous n\'etes pas autorise!'){
+            session()->forget('error');
+        }
         return view('auth.client.login');
     }
 
@@ -74,6 +79,12 @@ class LoginClientController extends Controller
 
     public function postLoginClientView(Request $request): RedirectResponse
     {
+        $telephone0 = $request->input('telephone');
+        //dd($telephone0);
+        $request->merge([
+            'telephone' => "+237".$telephone0,
+        ]);
+
         $request->validate([
             'telephone' => 'required|phone|exists:clients,telephone',
             'password' => 'required|string|min:8|max:20',
@@ -105,19 +116,24 @@ class LoginClientController extends Controller
         //return json_encode($credentials);
 
 
+        //dd($credentials);
 
         if (Auth::guard('client')->attempt($credentials)) {
             /*$h = fopen('test.txt', 'w+');
             fwrite($h, json_encode( json_encode($credentials)));
             fclose($h);*/
             //return redirect()->route('home.client')->withSuccess('status', 'You have Successfully loggedin');
-            session()->flash('status', __('Connexion réussie !'));
+            //session()->flash('status', __('Connexion réussie !'));
             return redirect()->route('home.client')->withSuccess('status', __('Connexion réussie !'));
         }
         //return redirect("auth/client")->back()->withError(['message' => 'Invalid Telephone or password']);
-        session()->flash('error', __('Aucune entrée correspondant aux identifinats fournis'));
+        $request->merge([
+            'telephone' => $telephone0,
+        ]);
+        //dd($request->all());
+        session()->flash('error', __('Aucune entrée correspondant aux identifiants fournis'));
         return back()->withErrors([
-            'error' => __('Aucune entrée correspondant aux identifinats fournis'),
+            'error' => __('Aucune entrée correspondant aux identifiants fournis'),
         ]);
     }
 
